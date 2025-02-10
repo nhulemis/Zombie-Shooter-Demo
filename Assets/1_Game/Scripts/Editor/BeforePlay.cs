@@ -25,7 +25,7 @@ namespace _1_Game.Scripts.Editor
         private static void YourFunction()
         {
             
-            SceneManager.LoadScene("Boostrap",LoadSceneMode.Single);
+           // SceneManager.LoadScene("Boostrap",LoadSceneMode.Single);
         }
     }
 }

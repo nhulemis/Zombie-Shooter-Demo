@@ -23,7 +23,5 @@ MonoBehaviour:
     SerializationNodes: []
   filesPath: Assets/1_Game/DataConfigs/Configs
   BaseConfigs:
-  - {fileID: 11400000, guid: b5102713f57814494866f3af444497ec, type: 2}
   - {fileID: 11400000, guid: fea55a8d1f11344a8afee974ae5eb244, type: 2}
-  - {fileID: 11400000, guid: 75f7c5bcf1bb84d38b3bf294ef1367db, type: 2}
   - {fileID: 11400000, guid: 238b4f5a7454749d9988a61c4d7b80d9, type: 2}
