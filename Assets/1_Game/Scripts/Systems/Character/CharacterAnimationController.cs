@@ -28,7 +28,7 @@ namespace _1_Game.Systems.Character
             _animator.SetLayerWeight(layerAimingIndex, 1);
         }
         
-        public void Execute_MovementAnimation(Vector3 movement)
+        public void Execute_MovementAnimation(Vector3 movement, bool isAiming = false)
         {
             bool isMoving = movement.x != 0 || movement.z != 0;
 
@@ -45,6 +45,9 @@ namespace _1_Game.Systems.Character
             {
                 _velocity = 0;
             }
+
+            float maxVelocity = isAiming ? 0.5f : 1;
+            _velocity = Mathf.Clamp(_velocity, 0, maxVelocity);
             _animator.SetFloat(_velocityHash, _velocity);
         }
     }

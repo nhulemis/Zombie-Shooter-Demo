@@ -7,7 +7,8 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
     public class WeaponController : MonoBehaviour
     {
         [SerializeField] private AttachComponent _attachComponent;
-        [SerializeField] private Weapon[] _weapons; 
+        [SerializeField] private Weapon[] _weapons;
+        public bool IsAiming => _attachComponent.IsEquippedWeapon;
 
         private void OnValidate()
         {

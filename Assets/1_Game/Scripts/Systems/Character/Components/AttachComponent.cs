@@ -11,6 +11,7 @@ namespace UnityEngine.SceneManagement
         [SerializeField, ValueDropdown("BoneIds")] private Transform _bindToBone;
 
         private Weapon equippedWeapon;
+        public bool IsEquippedWeapon => equippedWeapon != null;
 
         private IEnumerable BoneIds()
         {
