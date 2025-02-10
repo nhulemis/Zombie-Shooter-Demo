@@ -36,6 +36,7 @@ namespace _1_Game.Scripts.Controllers.Character
                 Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
             }
+            _animationController.Execute_MovementAnimation(movement);
         }
         
 

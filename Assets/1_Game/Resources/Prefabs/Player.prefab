@@ -73,6 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 5053703394990768967}
+  acceleration: 1
+  deceleration: 5
 --- !u!114 &547409299487936522
 MonoBehaviour:
   m_ObjectHideFlags: 0
