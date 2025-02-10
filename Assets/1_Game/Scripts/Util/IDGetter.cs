@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _1_Game.Scripts.DataConfig;
 using Script.GameData;
+using Script.GameData.Weapon;
 
 namespace _1_Game.Scripts.Util
 {
@@ -16,10 +17,16 @@ namespace _1_Game.Scripts.Util
             return new List<string>(){"GameView", "SplashView"};
         }
         
-        public static IEnumerable GetCharacterConfig()
+        public static IEnumerable GetCharacterConfigs()
         {
             var characterConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>();
             return characterConfig.CharacterDataList.Select(c => c.id);
+        }
+        
+        public static IEnumerable GetWeaponConfigs()
+        {
+            var weaponConfig = SafetyDatabase.SafetyDB.Get<WeaponConfig>();
+            return weaponConfig.weaponDataSets.Select(c => c.id);
         }
     }
 }
