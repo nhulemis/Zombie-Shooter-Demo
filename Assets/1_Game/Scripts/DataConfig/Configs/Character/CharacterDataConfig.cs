@@ -8,5 +8,6 @@ namespace Script.GameData
         public float Mass = 2f;
         public float MoveSpeed = 4f;
         public float JumpForce = 2f;
+        public float RotationSpeed = 10f;
     }
 }

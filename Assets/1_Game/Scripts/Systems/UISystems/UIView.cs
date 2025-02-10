@@ -35,7 +35,6 @@ namespace Game.Systems.UI
 
             // Register this view to UISystem
             Locator<UISystem>.Instance.RegisterView(this);
-            DontDestroyOnLoad(this);
         }
 
         public RectTransform GetBuilder(UIBuilder builderName)

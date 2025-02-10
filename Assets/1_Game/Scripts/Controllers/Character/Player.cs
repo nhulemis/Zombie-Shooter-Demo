@@ -28,6 +28,14 @@ namespace _1_Game.Scripts.Controllers.Character
             Vector3 movement = _input.GetMovement() * CharacterDataConfig.MoveSpeed;
             movement.y = VerticalMovement();
             _controller.Move(movement * Time.deltaTime);
+            
+            // Rotate player in movement direction
+            if (movement.x != 0 || movement.z != 0) // Check if moving
+            {
+                Vector3 lookDirection = new Vector3(movement.x, 0, movement.z); // Ignore Y-axis
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
+            }
         }
         
 
