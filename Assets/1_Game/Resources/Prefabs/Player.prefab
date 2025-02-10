@@ -53,8 +53,8 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.88
-  m_Radius: 0.32
+  m_Height: 1.76
+  m_Radius: 0.26
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -88,6 +88,7 @@ MonoBehaviour:
   _animationController: {fileID: 3835182454446107888}
   _controller: {fileID: 233161248928468247}
   _characterConfigID: BaseCharacterConfig
+  VerticalVelocity: 0
   _isPlayer: 1
   _input:
     rid: 8364553628744155489

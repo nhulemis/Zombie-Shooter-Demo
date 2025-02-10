@@ -15,9 +15,14 @@ namespace Game.Systems.UI
         public RectTransform MainViews;
         public RectTransform DialogViews;
         public RectTransform OverlayViews;
+        
+        [Header("Commands")]
+        [SerializeReference] private List<ICommand> _mainMenuCommands;
 
         // A dictionary for dynamic builder access
         private readonly Dictionary<UIBuilder, RectTransform> _builders = new Dictionary<UIBuilder, RectTransform>();
+        
+        
 #if UNITY_EDITOR
         public IEnumerable ViewGroups => IDGetter.GetUIGroupName();        
 #endif
@@ -30,6 +35,7 @@ namespace Game.Systems.UI
 
             // Register this view to UISystem
             Locator<UISystem>.Instance.RegisterView(this);
+            DontDestroyOnLoad(this);
         }
 
         public RectTransform GetBuilder(UIBuilder builderName)
@@ -45,12 +51,11 @@ namespace Game.Systems.UI
 
         private void Start()
         {
-            DebugLoadGamePlayUI();
-        }
-
-        [Button]
-        public async void DebugLoadGamePlayUI()
-        {
+            // Execute main menu commands
+            foreach (var command in _mainMenuCommands)
+            {
+                command.Execute().Forget();
+            }
         }
     }
 }

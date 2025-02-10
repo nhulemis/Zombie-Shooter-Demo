@@ -88,12 +88,14 @@ namespace Game.UI
         AssetDatabase.Refresh(); // Refresh the AssetDatabase so the new script appears in the Project window
 
         string scriptCommandContent = $@"
+using System;
 using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
 using Game.Systems.UI;
 
 namespace Game.UI
 {{
+    [Serializable]
     public class Open{popupName}Command : ICommand
     {{
         public async UniTask Execute()

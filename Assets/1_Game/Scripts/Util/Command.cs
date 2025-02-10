@@ -6,4 +6,9 @@ namespace _1_Game.Scripts.Util
     {
         UniTask Execute();
     }
+    
+    public interface ICommandUI
+    {
+        UniTask Execute();
+    }
 }

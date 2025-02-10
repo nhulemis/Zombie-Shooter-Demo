@@ -25,7 +25,6 @@ namespace _1_Game.Scripts.Controllers.Character
         private void Awake()
         {
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
-            _animationController.EquipWeapon();
         }
 
         private void FixedUpdate()

@@ -16,5 +16,10 @@ namespace _1_Game.Scripts.Util
             }
             _instance = default;
         }
+
+        public static T Get()
+        {
+            return _instance;
+        }
     }
 }

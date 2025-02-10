@@ -89,5 +89,15 @@ namespace Game.Systems.UI
             _activeUIs.Remove(uiData.id);
             UnityEngine.Object.Destroy(uiInstance);
         }
+        
+        // close an active UI
+        public void ExternalCloseUI<T>() where T : UIBase
+        {
+            var uiId = typeof(T).Name;
+            if (_activeUIs.TryGetValue(uiId, out var uiBase))
+            {
+                uiBase.CloseUI();
+            }
+        }
     }
 }

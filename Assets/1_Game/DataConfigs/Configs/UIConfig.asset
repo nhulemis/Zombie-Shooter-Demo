@@ -22,4 +22,16 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   id: 
-  UIDataConfigs: []
+  UIDataConfigs:
+  - id: MainMenuScreen
+    viewGroup: GameView
+    builder: 0
+    prefabPath: UI/MainMenuScreen/MainMenuScreen
+  - id: ConfirmQuitDialog
+    viewGroup: GameView
+    builder: 1
+    prefabPath: UI/ConfirmQuitDialog/ConfirmQuitDialog
+  - id: LoadingScene
+    viewGroup: GameView
+    builder: 0
+    prefabPath: UI/LoadingScene/LoadingScene

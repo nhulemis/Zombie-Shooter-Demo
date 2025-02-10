@@ -14,10 +14,7 @@ namespace _1_Game.Scripts.Controllers.Character
 
         private void Start()
         {
-            if (_isPlayer)
-            {
-                _animationController.EquipWeapon();
-            }
+            
         }
 
         private void FixedUpdate()
