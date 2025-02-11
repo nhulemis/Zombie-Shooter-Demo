@@ -54,7 +54,7 @@ namespace _1_Game.Systems.Character
         public void PickupWeapon(Weapon weapon)
         {
             _weaponController.EquipWeapon(weapon);
-            _animationController.EquipWeapon();
+            _animationController.EquipWeapon(weapon);
         }
     }
 }

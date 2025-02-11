@@ -13,8 +13,10 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
     {
         [SerializeField]
         public WeaponDataSet WeaponDataSet;
+        [field: SerializeField, ValueDropdown("animationLayerNames")] public string PoseLayerName { get; set; }
         public IEnumerable WeaponDataSetIds => IDGetter.GetWeaponConfigs();
         
+        private IEnumerable animationLayerNames => IDGetter.GetAnimationLayerMappingConfigs();
         
         public virtual void Attack()
         {

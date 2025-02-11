@@ -1,4 +1,5 @@
 using System;
+using _1_Game.Scripts.Systems.WeaponSystem;
 using UnityEngine;
 
 namespace _1_Game.Systems.Character
@@ -9,10 +10,8 @@ namespace _1_Game.Systems.Character
         [SerializeField] private float acceleration = 0.1f;
         [SerializeField] private float deceleration = 0.5f;
         
-        private const string _layerAiming = "Aiming";
         private int _velocityHash = Animator.StringToHash("Velocity");
         private float _velocity;
-        
 
         private void OnValidate()
         {
@@ -22,10 +21,20 @@ namespace _1_Game.Systems.Character
             }
         }
 
-        public void EquipWeapon()
+        public void EquipWeapon(Weapon weapon)
         {
-            int layerAimingIndex = _animator.GetLayerIndex(_layerAiming);
+            ResetWeightLayer();
+            int layerAimingIndex = _animator.GetLayerIndex(weapon.PoseLayerName);
             _animator.SetLayerWeight(layerAimingIndex, 1);
+        }
+        
+        private void ResetWeightLayer()
+        {
+            if(_animator.layerCount <= 1) return;
+            for (int i = 1; i < _animator.layerCount; i++)
+            {
+                _animator.SetLayerWeight(i, 0);
+            }
         }
         
         public void Execute_MovementAnimation(Vector3 movement, bool isAiming = false)

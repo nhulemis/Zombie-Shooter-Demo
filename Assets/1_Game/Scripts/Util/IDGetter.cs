@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _1_Game.Scripts.DataConfig;
 using Script.GameData;
+using Script.GameData.AnimationLayerMapping;
 using Script.GameData.Weapon;
 
 namespace _1_Game.Scripts.Util
@@ -27,6 +28,12 @@ namespace _1_Game.Scripts.Util
         {
             var weaponConfig = SafetyDatabase.SafetyDB.Get<WeaponConfig>();
             return weaponConfig.weaponDataSets.Select(c => c.id);
+        }
+
+        public static IEnumerable GetAnimationLayerMappingConfigs()
+        {
+            var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
+            return animationLayerMappingConfig.GetLayerNames();
         }
     }
 }
