@@ -1,4 +1,5 @@
 using System;
+using _1_Game.Scripts.Systems.Interactive;
 using _1_Game.Scripts.Systems.WeaponSystem.Commands;
 using DG.Tweening;
 using NUnit.Framework;
@@ -8,7 +9,7 @@ namespace _1_Game.Scripts.Systems.Pickup
 {
     [RequireComponent(typeof(SphereCollider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class PickupItem : MonoBehaviour
+    public class PickupItem : InteractiveComponent
     {
         [SerializeReference] private GameObject _pickupItemData;
 
@@ -17,7 +18,7 @@ namespace _1_Game.Scripts.Systems.Pickup
             transform.DORotate(new Vector3(0, 360, 0), 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
         }
 
-        private async void OnTriggerEnter(Collider other)
+        public override async void React()
         {
             if (_pickupItemData == null) return;
             transform.DOKill();
