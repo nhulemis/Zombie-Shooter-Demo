@@ -1,6 +1,8 @@
 using System;
 using _1_Game.Scripts.Systems.Interactive;
+using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
+using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,9 +14,18 @@ namespace _1_Game.Scripts.Systems.Door
         [SerializeField, ReadOnly]
         private Canvas _canvas;
 
+        private InventorySystem inventorySystem => Locator<InventorySystem>.Get();
+
         private void Start()
         {
             _canvas.gameObject.SetActive(false);
+            inventorySystem.Inventory.ObserveAdd().Subscribe(itemChanged =>
+            {
+                if (itemChanged.Key == typeof(KeyItem))
+                {
+                    Log.Debug("Key item added");
+                }
+            }).AddTo(this);
         }
 
         private void OnValidate()
