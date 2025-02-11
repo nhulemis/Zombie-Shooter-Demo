@@ -1,6 +1,7 @@
 using System;
 using _1_Game.Scripts.Systems.WeaponSystem.Commands;
 using DG.Tweening;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace _1_Game.Scripts.Systems.Pickup
@@ -21,11 +22,9 @@ namespace _1_Game.Scripts.Systems.Pickup
             if (_pickupItemData == null) return;
             transform.DOKill();
             IPickupableObject pickupableObject = _pickupItemData.GetComponent<IPickupableObject>();
-            if (pickupableObject != null)
-            {
-                await new PickupWeaponCommand(pickupableObject).Execute();
-                Destroy(gameObject);
-            }
+            Assert.IsNotNull(pickupableObject, "Class Weapon is not implement IPickupableObject");
+            await pickupableObject.Pickup();
+            Destroy(gameObject);
         }
     }
 }

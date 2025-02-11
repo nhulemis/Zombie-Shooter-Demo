@@ -1,8 +1,10 @@
+using Cysharp.Threading.Tasks;
+
 namespace _1_Game.Scripts.Systems.Pickup
 {
     public interface IPickupableObject
     {
-        void Pickup();
+        UniTask Pickup();
         void Drop();
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using _1_Game.Scripts.Systems.Pickup;
+using _1_Game.Scripts.Systems.WeaponSystem.Commands;
 using _1_Game.Scripts.Util;
+using Cysharp.Threading.Tasks;
 using Script.GameData.Weapon;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -23,8 +25,9 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             throw new System.NotImplementedException();
         }
 
-        public void Pickup()
+        public async UniTask Pickup()
         {
+            await new PickupWeaponCommand(this).Execute();
         }
 
         public void Drop()
