@@ -7,6 +7,14 @@ namespace _1_Game.Systems.Character
 {
     public class CharacterAnimationController : MonoBehaviour
     {
+        public struct MovementParameters
+        {
+            public Vector3 Movement;
+            public bool IsAiming;
+            public Transform AimingTarget;
+            public bool IsEquippingWeapon;
+        }
+        
         [SerializeField] private Animator _animator;
         [SerializeField] private float acceleration = 0.1f;
         [SerializeField] private float deceleration = 0.5f;
@@ -39,8 +47,11 @@ namespace _1_Game.Systems.Character
             }
         }
         
-        public void Execute_MovementAnimation(Vector3 movement, bool isAiming, Transform aimingTarget)
+        public void Execute_MovementAnimation(MovementParameters parameters)
         {
+            Vector3 movement = parameters.Movement;
+            Transform aimingTarget = parameters.AimingTarget;
+            
             bool isMoving = movement.x != 0 || movement.z != 0;
 
             if (isMoving && _velocity < 1)
@@ -57,13 +68,18 @@ namespace _1_Game.Systems.Character
                 _velocity = 0;
             }
 
-            float maxVelocity = isAiming ? 0.5f : 1;
+            float maxVelocity = parameters.IsEquippingWeapon ? 0.5f : 1;
             _velocity = Mathf.Clamp(_velocity, 0, maxVelocity);
             _animator.SetFloat(_velocityHash, _velocity);
-            
-            float movementDirectionSign = transform.GetMovementDirectionSign(movement, aimingTarget);
-            float speed = movementDirectionSign < 0 ? -1 : movementDirectionSign > 0 ? 1 : 0;
+
+            float speed = 1f;
+            if (parameters.IsAiming)
+            {
+                float movementDirectionSign = transform.GetMovementDirectionSign(movement, aimingTarget);
+                speed = movementDirectionSign < 0 ? -1f : movementDirectionSign > 0 ? 1f : 0f;
+            }
             _animator.SetFloat(_speedHash, speed);
+
         }
         
         

@@ -37,14 +37,14 @@ namespace _1_Game.Systems.Character
             Vector3 movement = _input.GetMovement() * CharacterDataConfig.MoveSpeed;
             movement.y = VerticalMovement();
             //if is backwards movement, reduce speed by 25%
-            if(transform.GetMovementDirectionSign(movement, _aimTarget) < 0)
+            if(isAiming && transform.GetMovementDirectionSign(movement, _aimTarget) < 0)
             {
                 movement *= 0.75f;
             }
             _controller.Move(movement * Time.deltaTime);
 
             // Prioritize aiming at _aimTarget if it exists
-            if (_aimTarget != null)
+            if (_aimTarget != null && isAiming)
             {
                 Vector3 aimDirection = _aimTarget.position - transform.position;
                 aimDirection.y = 0; // Ignore vertical rotation
@@ -56,14 +56,19 @@ namespace _1_Game.Systems.Character
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
                 }
             }
-            // else if (movement.x != 0 || movement.z != 0) // If no aim target, rotate by movement
-            // {
-            //     Vector3 moveDirection = new Vector3(movement.x, 0, movement.z);
-            //     Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            //     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
-            // }
+            else if (movement.x != 0 || movement.z != 0) // If no aim target, rotate by movement
+            {
+                Vector3 moveDirection = new Vector3(movement.x, 0, movement.z);
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
+            }
 
-            _animationController.Execute_MovementAnimation(movement, _weaponController.IsAiming , _aimTarget);
+            CharacterAnimationController.MovementParameters movementParameters;
+            movementParameters.Movement = movement;
+            movementParameters.IsAiming = isAiming;
+            movementParameters.AimingTarget = _aimTarget;
+            movementParameters.IsEquippingWeapon = _weaponController.IsEquippedWeapon;
+            _animationController.Execute_MovementAnimation(movementParameters);
         }
 
 

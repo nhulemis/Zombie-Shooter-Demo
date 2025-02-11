@@ -23,7 +23,8 @@ namespace _1_Game.Systems.Character
         
         protected CharacterDataConfig CharacterDataConfig;
         protected float VerticalVelocity;
-        
+        protected bool isAiming;
+
         private void Awake()
         {
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);

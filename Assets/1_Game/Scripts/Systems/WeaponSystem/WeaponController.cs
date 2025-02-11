@@ -8,7 +8,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
     {
         [SerializeField] private AttachComponent _attachComponent;
         [SerializeField] private Weapon[] _weapons;
-        public bool IsAiming => _attachComponent.IsEquippedWeapon;
+        public bool IsEquippedWeapon => _attachComponent.IsEquippedWeapon;
 
         private void OnValidate()
         {
