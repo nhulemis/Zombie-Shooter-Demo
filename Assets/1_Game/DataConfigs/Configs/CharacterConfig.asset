@@ -25,6 +25,8 @@ MonoBehaviour:
   Mass: 2
   MoveSpeed: 3
   JumpForce: 2
+  RotationSpeed: 10
+  AimOffsetAngle: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +78,8 @@ MonoBehaviour:
   Mass: 2
   MoveSpeed: 5
   JumpForce: 2
+  RotationSpeed: 10
+  AimOffsetAngle: 18
 --- !u!114 &9216047634933520099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +105,5 @@ MonoBehaviour:
   Mass: 2
   MoveSpeed: 4
   JumpForce: 2
+  RotationSpeed: 10
+  AimOffsetAngle: 10

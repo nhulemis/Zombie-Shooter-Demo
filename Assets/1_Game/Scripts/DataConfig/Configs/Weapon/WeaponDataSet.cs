@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using _1_Game.Scripts.Util;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Script.GameData.Weapon
@@ -12,5 +15,10 @@ namespace Script.GameData.Weapon
         public float range;
         public Vector3 equipedOffsetPosition;
         public Quaternion equipedOffsetRotation;
+        
+        [ValueDropdown("OverrideCharacterDataConfig")]
+        public string overrideCharacterDataConfig;
+        
+        private IEnumerable OverrideCharacterDataConfig => IDGetter.GetCharacterConfigs();
     }
 }

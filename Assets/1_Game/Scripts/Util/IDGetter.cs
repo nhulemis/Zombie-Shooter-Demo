@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,21 +19,29 @@ namespace _1_Game.Scripts.Util
         
         public static IEnumerable GetCharacterConfigs()
         {
+#if !UNITY_EDITOR
+            return new List<string>();
+#endif
             var characterConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>();
             return characterConfig.CharacterDataList.Select(c => c.id);
         }
         
         public static IEnumerable GetWeaponConfigs()
         {
+#if !UNITY_EDITOR
+            return new List<string>();
+#endif
             var weaponConfig = SafetyDatabase.SafetyDB.Get<WeaponConfig>();
             return weaponConfig.weaponDataSets.Select(c => c.id);
         }
 
         public static IEnumerable GetAnimationLayerMappingConfigs()
         {
+#if !UNITY_EDITOR
+            return new List<string>();
+#endif
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
             return animationLayerMappingConfig.GetLayerNames();
         }
     }
 }
-#endif

@@ -60,5 +60,11 @@ namespace _1_Game.Systems.Character
                 _weaponController = GetComponent<WeaponController>();
             }
         }
+        
+        protected void OverrideCharacterConfig(string characterConfigID)
+        {
+            CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(characterConfigID);
+            Log.Debug("[Character] Character Config Overridden: " + characterConfigID);
+        }
     }
 }

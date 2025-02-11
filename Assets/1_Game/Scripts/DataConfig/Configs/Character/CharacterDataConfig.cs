@@ -9,5 +9,6 @@ namespace Script.GameData
         public float MoveSpeed = 4f;
         public float JumpForce = 2f;
         public float RotationSpeed = 10f;
+        public float AimOffsetAngle = 10f;
     }
 }

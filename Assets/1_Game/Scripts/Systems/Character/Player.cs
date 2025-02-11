@@ -1,7 +1,9 @@
 using System;
 using _1_Game.Scripts.Systems.InputSystem;
 using _1_Game.Scripts.Systems.WeaponSystem;
+using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _1_Game.Systems.Character
@@ -13,9 +15,15 @@ namespace _1_Game.Systems.Character
         [EnableIf("_isPlayer"), SerializeReference]
         private IPlayerInput _input;
 
+        [ShowIf("_isPlayer"), SerializeField] private bool _isAutoAim;
+        
+        private Transform _aimTarget;
+
         private void Start()
         {
             _input.Initialize();
+            _aimTarget = new GameObject("AimTarget").transform;
+            _aimTarget.AddComponent<AimingToMouseActorComponent>();
         }
 
         private void FixedUpdate()
@@ -28,18 +36,36 @@ namespace _1_Game.Systems.Character
         {
             Vector3 movement = _input.GetMovement() * CharacterDataConfig.MoveSpeed;
             movement.y = VerticalMovement();
-            _controller.Move(movement * Time.deltaTime);
-            
-            // Rotate player in movement direction
-            if (movement.x != 0 || movement.z != 0) // Check if moving
+            //if is backwards movement, reduce speed by 25%
+            if(transform.GetMovementDirectionSign(movement, _aimTarget) < 0)
             {
-                Vector3 lookDirection = new Vector3(movement.x, 0, movement.z); // Ignore Y-axis
-                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
+                movement *= 0.75f;
             }
-            _animationController.Execute_MovementAnimation(movement, _weaponController.IsAiming);
+            _controller.Move(movement * Time.deltaTime);
+
+            // Prioritize aiming at _aimTarget if it exists
+            if (_aimTarget != null)
+            {
+                Vector3 aimDirection = _aimTarget.position - transform.position;
+                aimDirection.y = 0; // Ignore vertical rotation
+
+                if (aimDirection.sqrMagnitude > 0.01f) // Prevent tiny movements
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(aimDirection);
+                    targetRotation *= Quaternion.Euler(0, CharacterDataConfig.AimOffsetAngle, 0);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
+                }
+            }
+            // else if (movement.x != 0 || movement.z != 0) // If no aim target, rotate by movement
+            // {
+            //     Vector3 moveDirection = new Vector3(movement.x, 0, movement.z);
+            //     Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            //     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
+            // }
+
+            _animationController.Execute_MovementAnimation(movement, _weaponController.IsAiming , _aimTarget);
         }
-        
+
 
         private void OnCollisionEnter(Collision other)
         {
@@ -53,6 +79,7 @@ namespace _1_Game.Systems.Character
 
         public void PickupWeapon(Weapon weapon)
         {
+            OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);
             _weaponController.EquipWeapon(weapon);
             _animationController.EquipWeapon(weapon);
         }
