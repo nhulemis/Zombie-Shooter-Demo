@@ -784,6 +784,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1497344347}
     m_Modifications:
+    - target: {fileID: 547409299487936522, guid: fb5937a4d90dd4310b43cb2ffda941d8, type: 3}
+      propertyPath: _input
+      value: 8364553651157467402
+      objectReference: {fileID: 0}
+    - target: {fileID: 547409299487936522, guid: fb5937a4d90dd4310b43cb2ffda941d8, type: 3}
+      propertyPath: 'managedReferences[8364553651157467399]'
+      value: Assembly-CSharp _1_Game.Scripts.Systems.InputSystem.MobileInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 547409299487936522, guid: fb5937a4d90dd4310b43cb2ffda941d8, type: 3}
+      propertyPath: 'managedReferences[8364553651157467402]'
+      value: Assembly-CSharp _1_Game.Scripts.Systems.InputSystem.KeyBoardInput
+      objectReference: {fileID: 0}
     - target: {fileID: 3797762952244340238, guid: fb5937a4d90dd4310b43cb2ffda941d8, type: 3}
       propertyPath: m_Name
       value: Player

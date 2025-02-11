@@ -24,6 +24,7 @@ namespace _1_Game.Scripts.GamePlay.Commands
 
                     if (operation.progress >= 0.9f) // Scene is ready
                     {
+                        new OpenGamePlayScreenCommand().Execute().Forget();
                         Locator<UISystem>.Instance.ExternalCloseUI<LoadingScene>();
                         operation.allowSceneActivation = true;
                     }

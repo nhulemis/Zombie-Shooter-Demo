@@ -33,5 +33,17 @@ MonoBehaviour:
     prefabPath: UI/ConfirmQuitDialog/ConfirmQuitDialog
   - id: LoadingScene
     viewGroup: GameView
-    builder: 0
+    builder: 2
     prefabPath: UI/LoadingScene/LoadingScene
+  - id: GamePlayScreen
+    viewGroup: GameView
+    builder: 0
+    prefabPath: UI/GamePlayScreen/GamePlayScreen
+  - id: MobileInputView
+    viewGroup: GameView
+    builder: 0
+    prefabPath: UI/MobileInputView/MobileInputView
+  - id: DesktopInputView
+    viewGroup: GameView
+    builder: 0
+    prefabPath: UI/DesktopInputView/DesktopInputView

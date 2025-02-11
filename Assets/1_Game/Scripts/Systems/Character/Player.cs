@@ -15,7 +15,7 @@ namespace _1_Game.Systems.Character
 
         private void Start()
         {
-            
+            _input.Initialize();
         }
 
         private void FixedUpdate()
