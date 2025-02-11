@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5311012721575945521}
   - component: {fileID: 6463216064728036986}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: txtRequiredKeys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,8 +302,10 @@ MonoBehaviour:
   _doorParts:
   - {fileID: 6301674696713416976}
   - {fileID: 230566165668881090}
-  _interactable: 0
+  _interactable: 1
   _canvas: {fileID: 5303220832725347374}
+  _txtKeys: {fileID: 6463216064728036986}
+  requiredKeys: 1
 --- !u!135 &3301541822209604633
 SphereCollider:
   m_ObjectHideFlags: 0

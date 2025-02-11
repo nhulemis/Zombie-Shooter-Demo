@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using _1_Game.Scripts.Systems.Interactive;
 using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
+using TMPro;
 using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,19 +15,38 @@ namespace _1_Game.Scripts.Systems.Door
         [SerializeField] private bool _interactable;
         [SerializeField, ReadOnly]
         private Canvas _canvas;
+        [SerializeField , ValueDropdown("tmpTexts")] private TMP_Text _txtKeys;
+        [SerializeField] private int requiredKeys = 1;
+        private IEnumerable tmpTexts => transform.GetComponentsInChildren<TMP_Text>();
+        
 
         private InventorySystem inventorySystem => Locator<InventorySystem>.Get();
 
         private void Start()
         {
             _canvas.gameObject.SetActive(false);
+            OnPropertyChanged(typeof(KeyItem), 0);
+            RegisterListeners();
+        }
+
+        private void RegisterListeners()
+        {
             inventorySystem.Inventory.ObserveAdd().Subscribe(itemChanged =>
             {
-                if (itemChanged.Key == typeof(KeyItem))
-                {
-                    Log.Debug("Key item added");
-                }
+                OnPropertyChanged(itemChanged.Key, itemChanged.Value);
             }).AddTo(this);
+            inventorySystem.Inventory.ObserveReplace().Subscribe(itemChanged =>
+            {
+                OnPropertyChanged(itemChanged.Key, itemChanged.NewValue);
+            }).AddTo(this);
+        }
+        
+        private void OnPropertyChanged(Type itemChangedKey, int itemChangedValue)
+        {
+            if(itemChangedKey == typeof(KeyItem))
+            {
+                _txtKeys.text = $"{itemChangedValue}/{requiredKeys}";
+            }
         }
 
         private void OnValidate()
