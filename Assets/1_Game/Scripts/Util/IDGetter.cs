@@ -43,5 +43,14 @@ namespace _1_Game.Scripts.Util
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
             return animationLayerMappingConfig.GetLayerNames();
         }
+
+        public static IEnumerable GetParameterAnimationNames()
+        {
+#if !UNITY_EDITOR
+            return new List<string>();
+#endif
+            var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
+            return animationLayerMappingConfig.GetParameterNames();
+        }
     }
 }

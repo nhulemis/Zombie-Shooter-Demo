@@ -20,5 +20,17 @@ namespace Script.GameData.AnimationLayerMapping
             }
             return layerList;
         }
+        
+        public IEnumerable GetParameterNames()
+        {
+            if (_animatorController == null) return new ValueDropdownList<string>(){{"Animator is Null", null}};
+            
+            var parameterList = new ValueDropdownList<string>();
+            for (var i = 0; i < _animatorController.parameters.Length; i++)
+            {
+                parameterList.Add(_animatorController.parameters[i].name, _animatorController.parameters[i].name);
+            }
+            return parameterList;
+        }
     }
 }

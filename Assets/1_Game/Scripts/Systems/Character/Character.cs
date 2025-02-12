@@ -5,6 +5,7 @@ using _1_Game.Scripts.Systems.WeaponSystem;
 using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
 using Script.GameData;
+using Script.GameData.Weapon;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace _1_Game.Systems.Character
         [SerializeField, ValueDropdown("CharacterConfigID")] string _characterConfigID;
 
         public IEnumerable CharacterConfigID => IDGetter.GetCharacterConfigs();
+        public CharacterAnimationController AnimationController => _animationController;
         
         protected CharacterDataConfig CharacterDataConfig;
         protected float VerticalVelocity;
@@ -29,6 +31,7 @@ namespace _1_Game.Systems.Character
         private void Awake()
         {
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
+            _weaponController.Init(this);
         }
 
         protected float VerticalMovement()
@@ -80,5 +83,6 @@ namespace _1_Game.Systems.Character
             _weaponController.ThrowGrenade();
             _animationController.EquipWeapon(_weaponController.EquippedWeapon);
         }
+
     }
 }

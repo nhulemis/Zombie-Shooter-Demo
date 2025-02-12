@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 3294436437251181292}
   - {fileID: 9216047634933520099}
   - {fileID: -1360119056201419813}
+  - {fileID: 4263373524345201056}
 --- !u!114 &3294436437251181292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,6 +81,33 @@ MonoBehaviour:
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 18
+--- !u!114 &4263373524345201056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51c830fdee74f9e8fd64a4144d8daa5, type: 3}
+  m_Name: EquipGrenadeConfig
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  id: EquipGrenadeConfig
+  Mass: 2
+  MoveSpeed: 2
+  JumpForce: 2
+  RotationSpeed: 10
+  AimOffsetAngle: 10
 --- !u!114 &9216047634933520099
 MonoBehaviour:
   m_ObjectHideFlags: 0

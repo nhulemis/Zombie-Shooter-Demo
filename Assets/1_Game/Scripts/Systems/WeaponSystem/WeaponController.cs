@@ -1,4 +1,5 @@
 using System;
+using _1_Game.Systems.Character;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -12,6 +13,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         public bool IsEquippedWeapon => _rightHandAttachComponent.IsEquippedWeapon;
         
         public Weapon EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
+        private Character _actor;
 
         private void OnValidate()
         {
@@ -25,6 +27,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         {
             if (weapon == null) return;
             var wpInstance = Instantiate(weapon);
+            wpInstance.Init(_actor);
             _rightHandAttachComponent.AttachWeapon(wpInstance);
         }
 
@@ -46,10 +49,18 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             RetrieveWeaponFromIdleHand();
         }
 
-        public void Attack(Vector3 aimTargetPosition)
+        public void Attack( Vector3 aimTargetPosition)
         {
             var targetDirection = aimTargetPosition - transform.position;
             EquippedWeapon?.Attack(targetDirection);
+        }
+
+        public void Init(Character character)
+        {
+            Log.Debug("WeaponController Init");
+            _actor = character;
+            if(EquippedWeapon != null)
+                EquippedWeapon.Init(_actor);
         }
     }
 }

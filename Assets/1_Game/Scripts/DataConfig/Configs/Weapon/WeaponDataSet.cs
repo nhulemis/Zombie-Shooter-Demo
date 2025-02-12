@@ -25,6 +25,28 @@ namespace Script.GameData.Weapon
         [HideIf("isSelfAttack")]
         public AssetReference projectilePrefab;
         
+        [Header("Combo Attack")]
+        public bool hasAttack;
+        [ShowIf("hasAttack")] public ComboAttackData[] comboAttackData;
+        
         private IEnumerable OverrideCharacterDataConfig => IDGetter.GetCharacterConfigs();
+
+        public ComboAttackData GetCombo(int i)
+        {
+            return comboAttackData[i];
+        }
+    }
+
+    [Serializable]
+    public class ComboAttackData
+    {
+        public string comboName;
+        [ValueDropdown("parameterNames")]
+        public string animationName;
+        public int comboLevel;
+        [SerializeReference]
+        public ComboAttackData nextCombo;
+        
+        private IEnumerable parameterNames => IDGetter.GetParameterAnimationNames();
     }
 }

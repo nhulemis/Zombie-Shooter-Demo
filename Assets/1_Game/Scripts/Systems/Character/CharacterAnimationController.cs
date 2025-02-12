@@ -2,6 +2,7 @@ using System;
 using _1_Game.Scripts.Systems.WeaponSystem;
 using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
+using Script.GameData.Weapon;
 using UnityEngine;
 
 namespace _1_Game.Systems.Character
@@ -23,6 +24,7 @@ namespace _1_Game.Systems.Character
         private readonly int _velocityHash = Animator.StringToHash("Velocity");
         private readonly int _speedHash = Animator.StringToHash("Speed");
         private readonly int _grenadeThrowHash = Animator.StringToHash("Grenade");
+        private readonly int _comboHash = Animator.StringToHash("SkillCombo");
         private float _velocity;
 
         private void OnValidate()
@@ -94,6 +96,23 @@ namespace _1_Game.Systems.Character
         {
             _animator.SetTrigger(_grenadeThrowHash);
             int layerIndex = _animator.GetLayerIndex(grenade.PoseLayerName);
+            var clipInfo = _animator.GetCurrentAnimatorClipInfo(layerIndex);
+            float clipLength = clipInfo[0].clip.length;
+            return clipLength;
+        }
+
+        public async UniTask<float> AttackByAnimation(ComboAttackData attackData, Weapon weapon)
+        {
+            if (attackData == null)
+            {
+                _animator.SetInteger(_comboHash, 0);
+                return 0;
+            }
+            int idHash = Animator.StringToHash(attackData.animationName);
+            int comboLevel = attackData.comboLevel;
+            _animator.SetInteger(idHash, comboLevel);
+            await UniTask.NextFrame();
+            int layerIndex = _animator.GetLayerIndex(weapon.PoseLayerName);
             var clipInfo = _animator.GetCurrentAnimatorClipInfo(layerIndex);
             float clipLength = clipInfo[0].clip.length;
             return clipLength;
