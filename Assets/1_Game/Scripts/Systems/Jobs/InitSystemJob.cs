@@ -10,6 +10,7 @@ namespace _1_Game.Scripts.Systems
             await new InitDatabaseJob().Execute();
             await new InitUISystem().Execute();
             //await new InitAdSystemJob().Execute();
+            await new InitAssetLoaderJob().Execute();
             await UniTask.CompletedTask;
         }
     }

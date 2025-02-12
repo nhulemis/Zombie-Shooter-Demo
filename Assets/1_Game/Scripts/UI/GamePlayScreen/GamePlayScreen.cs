@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using _1_Game.Scripts.Systems;
+using _1_Game.Scripts.Systems.WeaponSystem.Commands;
 using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -61,6 +62,11 @@ namespace Game.UI
             tmpText.text = value.ToString();
             tmpText.transform.localScale = Vector3.one * 1.5f;
             tmpText.transform.DOScale(Vector3.one, 0.5f);
+        }
+
+        public void OnUseGrenadeClick()
+        {
+            new PreGrenadeCommand().Execute().Forget();
         }
     }
 }

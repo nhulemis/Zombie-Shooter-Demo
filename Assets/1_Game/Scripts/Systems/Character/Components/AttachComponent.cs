@@ -9,9 +9,11 @@ namespace UnityEngine.SceneManagement
     {
         [SerializeField] private Transform _body;
         [SerializeField, ValueDropdown("BoneIds")] private Transform _bindToBone;
+        [SerializeField] private AttachComponent _idleHand; // it can be another hand that is implemented AttackComponent
 
         private Weapon equippedWeapon;
         public bool IsEquippedWeapon => equippedWeapon != null;
+        public Weapon EquippedWeapon => equippedWeapon;
 
         private IEnumerable BoneIds()
         {
@@ -26,27 +28,48 @@ namespace UnityEngine.SceneManagement
             return boneList;
         }
 
-        public void EquipWeapon(Weapon weapon)
-        {
-            if(equippedWeapon != null) UnequipWeapon();
-            if(weapon == null) return;
-            equippedWeapon = Instantiate(weapon, transform);
-            equippedWeapon.transform.localPosition = weapon.WeaponDataSet.equipedOffsetPosition;
-            equippedWeapon.transform.localRotation = weapon.WeaponDataSet.equipedOffsetRotation;
-        }
-        
-        public void UnequipWeapon()
-        {
-            if(equippedWeapon == null) return;
-            
-            Destroy(equippedWeapon.gameObject);
-        }
-
         private void Update()
         {
             if (_bindToBone == null) return;
             transform.position = _bindToBone.position;
             transform.rotation = _bindToBone.rotation;
+        }
+        
+        public void AttachWeapon(Weapon weapon, bool isKeepPosition = false)
+        {
+            if (weapon == null) return;
+
+            equippedWeapon = weapon;
+            weapon.transform.SetParent(transform); 
+            if (isKeepPosition) return;
+            weapon.transform.localPosition = weapon.WeaponDataSet.equipedOffsetPosition;
+            weapon.transform.localRotation = weapon.WeaponDataSet.equipedOffsetRotation;
+        }
+
+        public Weapon DetachWeapon()
+        {
+            if (!IsEquippedWeapon) return null;
+
+            Weapon weapon = equippedWeapon;
+            equippedWeapon = null;
+            weapon.transform.SetParent(null); 
+            return weapon;
+        }
+
+        public void SwitchWeaponToIdleHand()
+        {
+            if (!IsEquippedWeapon || _idleHand == null) return;
+
+            Weapon weapon = DetachWeapon();
+            _idleHand.AttachWeapon(weapon , true);
+        }
+
+        public void RetrieveWeaponFromIdleHand()
+        {
+            if (_idleHand == null || !_idleHand.IsEquippedWeapon) return;
+
+            Weapon weapon = _idleHand.DetachWeapon();
+            AttachWeapon(weapon);
         }
     }
 }

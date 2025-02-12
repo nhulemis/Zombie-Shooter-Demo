@@ -88,5 +88,16 @@ namespace _1_Game.Systems.Character
             _weaponController.EquipWeapon(weapon);
             _animationController.EquipWeapon(weapon);
         }
+
+        public async void ExecuteGrenade(Weapon grenade)
+        {
+            _weaponController.SwitchWeaponToIdleHand();
+            _weaponController.EquipWeapon(grenade);
+            _animationController.EquipWeapon(grenade);
+            var grenadeThrow = _weaponController.EquippedWeapon;
+            await _animationController.Execute_GrenadeThrow(grenadeThrow);
+            _weaponController.RetrieveWeaponFromIdleHand();
+            _animationController.EquipWeapon(_weaponController.EquippedWeapon);
+        }
     }
 }

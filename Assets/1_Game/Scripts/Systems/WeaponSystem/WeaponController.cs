@@ -1,33 +1,42 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace _1_Game.Scripts.Systems.WeaponSystem
 {
     public class WeaponController : MonoBehaviour
     {
-        [SerializeField] private AttachComponent _attachComponent;
+        [FormerlySerializedAs("_attachComponent")] [SerializeField] private AttachComponent _rightHandAttachComponent;
         [SerializeField] private Weapon[] _weapons;
-        public bool IsEquippedWeapon => _attachComponent.IsEquippedWeapon;
+        public bool IsEquippedWeapon => _rightHandAttachComponent.IsEquippedWeapon;
+        
+        public Weapon EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
 
         private void OnValidate()
         {
-            if (_attachComponent == null)
+            if (_rightHandAttachComponent == null)
             {
-                _attachComponent = GetComponentInChildren<AttachComponent>();
+                _rightHandAttachComponent = GetComponentInChildren<AttachComponent>();
             }
-        }
-        
-        public void EquipWeapon(int weaponIndex)
-        {
-            if (weaponIndex < 0 || weaponIndex >= _weapons.Length) return;
-            _attachComponent.EquipWeapon(_weapons[weaponIndex]);
         }
 
         public void EquipWeapon(Weapon weapon)
         {
             if (weapon == null) return;
-            _attachComponent.EquipWeapon(weapon);
+            var wpInstance = Instantiate(weapon);
+            _rightHandAttachComponent.AttachWeapon(wpInstance);
         }
+
+        public void SwitchWeaponToIdleHand()
+        {
+            _rightHandAttachComponent.SwitchWeaponToIdleHand();
+        }
+        
+        public void RetrieveWeaponFromIdleHand()
+        {
+            _rightHandAttachComponent.RetrieveWeaponFromIdleHand();
+        }
+        
     }
 }

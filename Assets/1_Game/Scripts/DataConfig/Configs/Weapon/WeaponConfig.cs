@@ -6,7 +6,7 @@ namespace Script.GameData.Weapon
 {
     public class WeaponConfig : BaseConfig
     {
-        [ListDrawerSettings(CustomAddFunction = "AddNewConfig", CustomRemoveElementFunction = "RemoveDataTable")]
+        [ListDrawerSettings(CustomAddFunction = "AddNewConfig", CustomRemoveElementFunction = "RemoveDataTable"),InlineEditor]
         public List<WeaponDataSet> weaponDataSets = new List<WeaponDataSet>();
         protected override IList Items => weaponDataSets;
     }

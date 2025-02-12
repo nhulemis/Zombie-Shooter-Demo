@@ -1,6 +1,7 @@
 using System;
 using _1_Game.Scripts.Systems.WeaponSystem;
 using _1_Game.Scripts.Util;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace _1_Game.Systems.Character
@@ -21,6 +22,7 @@ namespace _1_Game.Systems.Character
         
         private readonly int _velocityHash = Animator.StringToHash("Velocity");
         private readonly int _speedHash = Animator.StringToHash("Speed");
+        private readonly int _grenadeThrowHash = Animator.StringToHash("Grenade");
         private float _velocity;
 
         private void OnValidate()
@@ -81,7 +83,16 @@ namespace _1_Game.Systems.Character
             _animator.SetFloat(_speedHash, speed);
 
         }
-        
-        
+
+
+        public async UniTask Execute_GrenadeThrow(Weapon grenade)
+        {
+            _animator.SetTrigger(_grenadeThrowHash);
+            int layerIndex = _animator.GetLayerIndex(grenade.PoseLayerName);
+            var clipInfo = _animator.GetCurrentAnimatorClipInfo(layerIndex);
+            float clipLength = clipInfo[0].clip.length;
+            await UniTask.Delay(TimeSpan.FromSeconds(clipLength));
+            Destroy(grenade.gameObject);
+        }
     }
 }

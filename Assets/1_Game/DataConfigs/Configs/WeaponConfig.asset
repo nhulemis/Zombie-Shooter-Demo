@@ -25,6 +25,7 @@ MonoBehaviour:
   weaponDataSets:
   - {fileID: 4019222089713566084}
   - {fileID: 8528951598687712372}
+  - {fileID: 6595990790466054101}
 --- !u!114 &4019222089713566084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,6 +53,34 @@ MonoBehaviour:
   range: 0
   equipedOffsetPosition: {x: -0.03, y: 0.131, z: 0.068}
   equipedOffsetRotation: {x: -0.6360975, y: 0.50723624, z: 0.45150554, w: 0.3663798}
+  overrideCharacterDataConfig: EquipGunCharacterConfig
+--- !u!114 &6595990790466054101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ed08ad3104f629e56efcc4fb061f7, type: 3}
+  m_Name: Grenade
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  id: Grenade
+  damage: 0
+  attackRate: 0
+  range: 0
+  equipedOffsetPosition: {x: 0.032, y: 0.073, z: 0.043}
+  equipedOffsetRotation: {x: 0, y: 0, z: 0, w: 0}
   overrideCharacterDataConfig: EquipGunCharacterConfig
 --- !u!114 &8528951598687712372
 MonoBehaviour:
