@@ -48,19 +48,19 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   id: Rifle
-  damage: 0
-  attackRate: 0
-  range: 0
+  damage: 11
+  attackRate: 0.5
+  range: 20
   equipedOffsetPosition: {x: -0.03, y: 0.131, z: 0.068}
   equipedOffsetRotation: {x: -0.6360975, y: 0.50723624, z: 0.45150554, w: 0.3663798}
   overrideCharacterDataConfig: EquipGunCharacterConfig
   isSelfAttack: 0
   projectilePrefab:
-    m_AssetGUID: 
+    m_AssetGUID: d223fbf886f2aa4408426d093198ef12
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 
-    m_EditorAssetChanged: 0
+    m_EditorAssetChanged: 1
 --- !u!114 &6595990790466054101
 MonoBehaviour:
   m_ObjectHideFlags: 0

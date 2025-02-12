@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using Game.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace _1_Game.Scripts.Systems.InputSystem
@@ -28,7 +29,12 @@ namespace _1_Game.Scripts.Systems.InputSystem
 
         public bool IsAttacking()
         {
-            throw new System.NotImplementedException();
+            // check the mouse is hover on an UI element
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return false;
+            }
+            return Mouse.current.leftButton.isPressed;
         }
     }
 }

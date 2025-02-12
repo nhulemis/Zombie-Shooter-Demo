@@ -22,6 +22,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d223fbf886f2aa4408426d093198ef12
+    m_Address: Assets/Hovl Studio/Toon projectiles/Prefabs/Projectile 11 bullets.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5a8decfd50f73349b2f7a397f975a01
     m_Address: Prefabs/Weapons/Grenade
     m_ReadOnly: 0

@@ -25,12 +25,22 @@ namespace _1_Game.Systems.Character
             _input.Initialize();
             _aimTarget = new GameObject("AimTarget").transform;
             _aimTarget.AddComponent<AimingToMouseActorComponent>();
+            isAiming = _isAutoAim;
         }
 
         private void FixedUpdate()
         {
             if (!_isPlayer) return;
             Movement();
+            Attack();
+        }
+
+        private void Attack()
+        {
+            if (_input.IsAttacking())
+            {
+                _weaponController.Attack(_aimTarget.position);
+            }
         }
 
         private void Movement()
@@ -90,16 +100,6 @@ namespace _1_Game.Systems.Character
             _animationController.EquipWeapon(weapon);
         }
 
-        public async void ExecuteGrenade(Weapon grenade)
-        {
-            _weaponController.SwitchWeaponToIdleHand();
-            _weaponController.EquipWeapon(grenade);
-            _animationController.EquipWeapon(grenade);
-            var grenadeThrow = _weaponController.EquippedWeapon;
-            float timeToPlayAnim = _animationController.Execute_GrenadeThrow(grenadeThrow);
-            await UniTask.Delay(TimeSpan.FromSeconds(timeToPlayAnim / 6));
-            _weaponController.ThrowGrenade();
-            _animationController.EquipWeapon(_weaponController.EquippedWeapon);
-        }
+        
     }
 }

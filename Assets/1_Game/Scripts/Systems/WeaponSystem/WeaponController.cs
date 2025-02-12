@@ -45,6 +45,11 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             weapon.Attack(transform.forward);
             RetrieveWeaponFromIdleHand();
         }
-        
+
+        public void Attack(Vector3 aimTargetPosition)
+        {
+            var targetDirection = aimTargetPosition - transform.position;
+            EquippedWeapon?.Attack(targetDirection);
+        }
     }
 }
