@@ -3,6 +3,7 @@ using System.Collections;
 using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Script.GameData.Weapon
 {
@@ -18,6 +19,11 @@ namespace Script.GameData.Weapon
         
         [ValueDropdown("OverrideCharacterDataConfig")]
         public string overrideCharacterDataConfig;
+        
+        [Header("Projectile")]
+        public bool isSelfAttack;
+        [HideIf("isSelfAttack")]
+        public AssetReference projectilePrefab;
         
         private IEnumerable OverrideCharacterDataConfig => IDGetter.GetCharacterConfigs();
     }

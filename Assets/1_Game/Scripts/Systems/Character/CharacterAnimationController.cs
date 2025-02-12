@@ -85,14 +85,18 @@ namespace _1_Game.Systems.Character
         }
 
 
-        public async UniTask Execute_GrenadeThrow(Weapon grenade)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="grenade"></param>
+        /// <returns>Time play the aimation</returns>
+        public float Execute_GrenadeThrow(Weapon grenade)
         {
             _animator.SetTrigger(_grenadeThrowHash);
             int layerIndex = _animator.GetLayerIndex(grenade.PoseLayerName);
             var clipInfo = _animator.GetCurrentAnimatorClipInfo(layerIndex);
             float clipLength = clipInfo[0].clip.length;
-            await UniTask.Delay(TimeSpan.FromSeconds(clipLength));
-            Destroy(grenade.gameObject);
+            return clipLength;
         }
     }
 }

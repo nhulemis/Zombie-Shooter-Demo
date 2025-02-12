@@ -2,6 +2,7 @@ using System;
 using _1_Game.Scripts.Systems.InputSystem;
 using _1_Game.Scripts.Systems.WeaponSystem;
 using _1_Game.Scripts.Util;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -95,8 +96,9 @@ namespace _1_Game.Systems.Character
             _weaponController.EquipWeapon(grenade);
             _animationController.EquipWeapon(grenade);
             var grenadeThrow = _weaponController.EquippedWeapon;
-            await _animationController.Execute_GrenadeThrow(grenadeThrow);
-            _weaponController.RetrieveWeaponFromIdleHand();
+            float timeToPlayAnim = _animationController.Execute_GrenadeThrow(grenadeThrow);
+            await UniTask.Delay(TimeSpan.FromSeconds(timeToPlayAnim / 6));
+            _weaponController.ThrowGrenade();
             _animationController.EquipWeapon(_weaponController.EquippedWeapon);
         }
     }

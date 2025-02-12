@@ -182,6 +182,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4223660590032030622}
   - component: {fileID: 4674069278389591950}
+  - component: {fileID: 6870339804261722093}
+  - component: {fileID: 1230150253532864219}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -229,6 +231,46 @@ MonoBehaviour:
     - rid: 8364553651157467565
       type: {class: GrenadeActor, ns: _1_Game.Scripts.Systems.WeaponSystem, asm: Assembly-CSharp}
       data: 
+--- !u!54 &6870339804261722093
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3591238353466249508}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1230150253532864219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3591238353466249508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e4e04a71ed4c94940aea1733e9e4eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!1 &3922017175454867523
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +282,7 @@ GameObject:
   - component: {fileID: 6063695211027671192}
   - component: {fileID: 1745719630165015113}
   - component: {fileID: 5737003158855634326}
+  - component: {fileID: 9200974857847737809}
   m_Layer: 0
   m_Name: R2Bm
   m_TagString: Untagged
@@ -315,3 +358,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &9200974857847737809
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922017175454867523}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.069330215
+  m_Center: {x: -0.0013714079, y: 0.047126587, z: -0.0023044143}

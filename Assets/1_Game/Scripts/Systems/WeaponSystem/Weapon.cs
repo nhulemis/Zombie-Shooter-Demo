@@ -20,9 +20,9 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         
         private IEnumerable animationLayerNames => IDGetter.GetAnimationLayerMappingConfigs();
         
-        public virtual void Attack()
+        public virtual void Attack(Vector3 targetDirection)
         {
-            throw new System.NotImplementedException();
+            Log.Debug("[Base] Weapon attack");
         }
 
         public async UniTask Pickup()

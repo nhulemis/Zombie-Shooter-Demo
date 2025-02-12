@@ -38,5 +38,13 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             _rightHandAttachComponent.RetrieveWeaponFromIdleHand();
         }
         
+        public void ThrowGrenade()
+        {
+            if (!IsEquippedWeapon) return;
+            var weapon = _rightHandAttachComponent.DetachWeapon();
+            weapon.Attack(transform.forward);
+            RetrieveWeaponFromIdleHand();
+        }
+        
     }
 }

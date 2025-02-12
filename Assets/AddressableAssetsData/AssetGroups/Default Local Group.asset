@@ -15,6 +15,13 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: e688c0662101f487d87e789eb11d4d2b
   m_SerializeEntries:
+  - m_GUID: 99bc28c0d45f51c4fbac01080b73edc7
+    m_Address: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Explosions/CFXR3
+      Fire Explosion B.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5a8decfd50f73349b2f7a397f975a01
     m_Address: Prefabs/Weapons/Grenade
     m_ReadOnly: 0
