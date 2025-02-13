@@ -14,6 +14,17 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         
         public Weapon EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
         private Character _actor;
+        
+        public void Init(Character character)
+        {
+            Log.Debug("WeaponController Init");
+            _actor = character;
+            if(EquippedWeapon != null)
+                EquippedWeapon.Init(_actor);
+            
+            if(_weapons.Length > 0)
+                _actor.PickupWeapon(_weapons[0]);
+        }
 
         private void OnValidate()
         {
@@ -61,12 +72,6 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             EquippedWeapon?.Attack(targetDirection);
         }
 
-        public void Init(Character character)
-        {
-            Log.Debug("WeaponController Init");
-            _actor = character;
-            if(EquippedWeapon != null)
-                EquippedWeapon.Init(_actor);
-        }
+        
     }
 }

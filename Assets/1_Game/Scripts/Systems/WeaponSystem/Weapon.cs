@@ -57,5 +57,10 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         public void Drop()
         {
         }
+
+        public float GetAttackRate()
+        {
+            return WeaponDataSet.attackRate;
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace _1_Game.Systems.Character
             Attack();
         }
 
-        private void Attack()
+        public override void Attack()
         {
             if (_input.IsAttacking())
             {
@@ -93,12 +93,7 @@ namespace _1_Game.Systems.Character
             Log.Debug("Player triggered with: " + other.gameObject.name);
         }
 
-        public void PickupWeapon(Weapon weapon)
-        {
-            OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);
-            _weaponController.EquipWeapon(weapon);
-            _animationController.EquipWeapon(weapon);
-        }
+        
 
         
     }

@@ -23,7 +23,9 @@ namespace _1_Game.Scripts.Util
             return new List<string>();
 #endif
             var characterConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>();
-            return characterConfig.CharacterDataList.Select(c => c.id);
+            var result = new List<string>() { "none" };
+            result.AddRange(characterConfig.CharacterDataList.Select(c => c.id));
+            return result;
         }
         
         public static IEnumerable GetWeaponConfigs()

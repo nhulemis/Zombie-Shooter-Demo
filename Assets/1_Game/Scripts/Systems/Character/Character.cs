@@ -24,6 +24,8 @@ namespace _1_Game.Systems.Character
         public IEnumerable CharacterConfigID => IDGetter.GetCharacterConfigs();
         public CharacterAnimationController AnimationController => _animationController;
         
+        public Weapon Weapon => _weaponController.EquippedWeapon;
+        
         protected CharacterDataConfig CharacterDataConfig;
         protected float VerticalVelocity;
         protected bool isAiming;
@@ -33,6 +35,10 @@ namespace _1_Game.Systems.Character
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
             _weaponController.Init(this);
             _animationController.Init(CharacterDataConfig);
+        }
+
+        public virtual void Attack()
+        {
         }
 
         protected float VerticalMovement()
@@ -69,7 +75,9 @@ namespace _1_Game.Systems.Character
         
         protected void OverrideCharacterConfig(string characterConfigID)
         {
-            CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(characterConfigID);
+            var overrideData = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(characterConfigID);
+            if(overrideData == null) return;
+            CharacterDataConfig = overrideData;
             _animationController.ApplyOverrideConfig(CharacterDataConfig);
             Log.Debug("[Character] Character Config Overridden: " + characterConfigID);
         }
@@ -92,6 +100,18 @@ namespace _1_Game.Systems.Character
         public void Execute_MovementAnimation(CharacterAnimationController.MovementParameters parameters)
         {
             _animationController.Execute_MovementAnimation(parameters);
+        }
+        
+        public void TakeDamage(float damage)
+        {
+            Log.Debug($"[Character] {name} took {damage} damage");
+        }
+        
+        public void PickupWeapon(Weapon weapon)
+        {
+            OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);
+            _weaponController.EquipWeapon(weapon);
+            _animationController.EquipWeapon(weapon);
         }
 
     }

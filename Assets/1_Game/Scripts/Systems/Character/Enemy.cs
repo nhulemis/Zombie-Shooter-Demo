@@ -33,7 +33,7 @@ namespace _1_Game.Systems.Character
 
             ConditionNode checkPlayerInAttackRange = new ConditionNode(() =>
             {
-                return Vector3.Distance(transform.position, player.position) < CharacterDataConfig.AttackRange;
+                return Vector3.Distance(transform.position, player.position) < CharacterDataConfig.AttackRange + 0.5f;
             });
 
             // Actions
@@ -45,7 +45,7 @@ namespace _1_Game.Systems.Character
 
             MoveToPlayerNode moveToPlayer = new MoveToPlayerNode(moveParams);
             PatrolNode patrol = new PatrolNode(this, agent, PatrolPoints());
-            AttackNode attack = new AttackNode(animator);
+            AttackNode attack = new AttackNode(this);
 
             rootNode = new SelectorNode(new List<Node>
             {
@@ -70,6 +70,14 @@ namespace _1_Game.Systems.Character
             }
 
             return output;
+        }
+        
+        public override void Attack()
+        {
+            if (Weapon != null)
+            {
+                _weaponController.Attack(player.position);
+            }
         }
 
         private Vector3 GetRandomPointAroundCharacter(float range)

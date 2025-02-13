@@ -27,7 +27,7 @@ MonoBehaviour:
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 10
-  AttackRange: 2
+  AttackRange: 1
   OverrideClips:
   - MappingTo: AC_Idle
     Clip: {fileID: 7400000, guid: da0efa2f5123d47238b90a9b860d690b, type: 2}
@@ -35,6 +35,12 @@ MonoBehaviour:
     Clip: {fileID: 7400000, guid: cc8de987e0c604dbc8b9fee393e5cf8f, type: 2}
   - MappingTo: AC_Walking
     Clip: {fileID: 7400000, guid: 0a927d11c5f5d4d0e9540818dfb1382f, type: 2}
+  - MappingTo: AC_Idle_Sword_01
+    Clip: {fileID: 7400000, guid: da0efa2f5123d47238b90a9b860d690b, type: 2}
+  - MappingTo: AC_Combo01
+    Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
+  - MappingTo: AC_Combo02
+    Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
 --- !u!114 &-1360119056201419813
 MonoBehaviour:
   m_ObjectHideFlags: 0

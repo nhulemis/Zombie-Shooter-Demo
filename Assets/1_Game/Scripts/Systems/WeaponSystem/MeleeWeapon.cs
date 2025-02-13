@@ -60,13 +60,22 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
                 var comboAttackData = _comboAttackQueue.Peek();
                 Log.Debug($"Skill name:{ comboAttackData?.comboName} - Level: {comboAttackData?.comboLevel}");
                 float delay =  await _actor.AnimationController.AttackByAnimation(comboAttackData , this);
-                await UniTask.Delay(TimeSpan.FromSeconds(delay/1.2f));
+                await UniTask.Delay(TimeSpan.FromSeconds(delay/1.3f));
                 _comboAttackQueue.Dequeue();
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(WeaponDataSet.attackRate));
+            await UniTask.NextFrame();
             await _actor.AnimationController.AttackByAnimation(null , this);
             currentComboAttackData = null;
             _isPlayingComboAttack = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out Character enemy))
+            {
+                if(_actor == null || enemy.GetHashCode() == _actor.GetHashCode()) return;
+                enemy.TakeDamage(WeaponDataSet.damage);
+            }
         }
     }
 }

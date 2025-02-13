@@ -28,8 +28,8 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             {
                 return (T)cachedAsset;
             }
-
             var handle = key.LoadAssetAsync<T>();
+            handleCache[keyHash] = handle;
             await handle.ToUniTask(); 
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
@@ -41,6 +41,7 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             else
             {
                 Debug.LogError($"Failed to load asset: {key}");
+                handleCache.Remove(keyHash);
                 return null;
             }
         }

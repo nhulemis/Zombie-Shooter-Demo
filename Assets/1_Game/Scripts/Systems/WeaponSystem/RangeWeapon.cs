@@ -14,6 +14,8 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         {
             base.Attack( targetDirection);
             if (!_isReadyToAttack ) return;
+            _isReadyToAttack = false;
+            _lastAttackTime = Time.time;
             Log.Debug("Range weapon attack");
             if (WeaponDataSet.isSelfAttack) // the self attack
             {
@@ -26,7 +28,6 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
                 projectile.transform.forward = _firePoint.forward;
                 _rangeActor.Attack(projectile.transform, _firePoint.forward, WeaponDataSet);
             }
-            _isReadyToAttack = false;
         }
     }
 }

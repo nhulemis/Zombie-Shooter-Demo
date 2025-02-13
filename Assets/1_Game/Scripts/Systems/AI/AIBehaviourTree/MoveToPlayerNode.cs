@@ -31,15 +31,15 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         public override NodeState Evaluate()
         {
-            
-            if (Vector3.Distance(_agent.transform.position, _player.position) <= _stoppingDistance)
+            float distance = Vector3.Distance(_agent.transform.position, _player.position);
+            if (distance <= _stoppingDistance)
             {
                 _agent.ResetPath(); // Stop moving when close enough
                 ExecuteAnimation(Vector3.zero);
                 return NodeState.Success;
             }
-
-            _agent.SetDestination(_player.position); // Move towards player
+            var destination = _player.position - (_player.position - _agent.transform.position).normalized * _stoppingDistance;
+            _agent.SetDestination(destination); // Move towards player
             if (_agent.velocity.magnitude > 0)
             {
                 ExecuteAnimation(_agent.velocity);

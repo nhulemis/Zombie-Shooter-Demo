@@ -730,6 +730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6183225502940299214}
   - component: {fileID: 143291524499487059}
+  - component: {fileID: -8188838262928728077}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -786,6 +787,26 @@ MonoBehaviour:
     - rid: 8364553678477066720
       type: {class: GunActor, ns: _1_Game.Scripts.Systems.WeaponSystem, asm: Assembly-CSharp}
       data: 
+--- !u!114 &-8188838262928728077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810826342680241524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &6921539997277899181
 GameObject:
   m_ObjectHideFlags: 0

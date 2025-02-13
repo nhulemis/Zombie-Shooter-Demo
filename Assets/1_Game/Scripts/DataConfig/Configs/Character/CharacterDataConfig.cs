@@ -17,7 +17,7 @@ namespace Script.GameData
         public float AimOffsetAngle = 10f;
         public float AttackRange = 2f;
         
-        [FoldoutGroup("Override Clips")]
+        [FoldoutGroup("Animation Override")]
         public List<OverrideClip> OverrideClips = new List<OverrideClip>();
         
     }
