@@ -7,7 +7,7 @@ namespace Script.GameData
 {
     public class CharacterConfig : BaseConfig
     {
-        [ListDrawerSettings(CustomAddFunction = "AddNewConfig", CustomRemoveElementFunction = "RemoveDataTable")]
+        [ListDrawerSettings(CustomAddFunction = "AddNewConfig", CustomRemoveElementFunction = "RemoveDataTable"), InlineEditor]
         public List<CharacterDataConfig> CharacterDataList = new();
 
         protected override IList Items => CharacterDataList;

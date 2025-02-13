@@ -74,12 +74,12 @@ namespace _1_Game.Systems.Character
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CharacterDataConfig.RotationSpeed);
             }
 
-            CharacterAnimationController.MovementParameters movementParameters;
+            CharacterAnimationController.MovementParameters movementParameters = default;
             movementParameters.Movement = movement;
             movementParameters.IsAiming = isAiming;
             movementParameters.AimingTarget = _aimTarget;
             movementParameters.IsEquippingWeapon = _weaponController.IsEquippedWeapon;
-            _animationController.Execute_MovementAnimation(movementParameters);
+            Execute_MovementAnimation(movementParameters);
         }
 
 

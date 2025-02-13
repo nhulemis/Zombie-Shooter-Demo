@@ -1,5 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
+using _1_Game.Scripts.Systems.AI.PathFinding;
 using _1_Game.Scripts.Systems.Interactive;
+using _1_Game.Scripts.Util;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,7 +13,7 @@ namespace _1_Game.Scripts.Systems.Door
     public class DoorComponent : InteractiveComponent
     {
         [SerializeField,ValueDropdown("GetDoorParts")] Transform[] _doorParts;
-        
+        [SerializeReference] private List<ICommand> _doorStateChangeCommands = new List<ICommand>();
         private IEnumerable GetDoorParts()
         {
             var doorParts = GetComponentsInChildren<Transform>();   
@@ -21,19 +25,33 @@ namespace _1_Game.Scripts.Systems.Door
             OpenDoor();
         }
         
-        protected void OpenDoor()
+        protected async void OpenDoor()
         {
+            List<UniTask> tasks = new List<UniTask>();
             foreach (var doorPart in _doorParts)
             {
-                doorPart.DOLocalMoveY(-5f, 1f).SetEase(Ease.InOutSine);
+                tasks.Add(doorPart.DOLocalMoveY(-5f, 1f).SetEase(Ease.InOutSine).ToUniTask());
             }
+            await UniTask.WhenAll(tasks);
+            ChangeDoorState();
         }
         
-        protected void CloseDoor()
+        protected async void CloseDoor()
         {
+            List<UniTask> tasks = new List<UniTask>();
             foreach (var doorPart in _doorParts)
             {
-                doorPart.DOLocalMoveY(0f, 1f).SetEase(Ease.InOutSine);
+                tasks.Add(doorPart.DOLocalMoveY(0f, 1f).SetEase(Ease.InOutSine).ToUniTask());
+            }
+            await UniTask.WhenAll(tasks);
+            ChangeDoorState();
+        }
+        
+        protected void ChangeDoorState()
+        {
+            foreach (var command in _doorStateChangeCommands)
+            {
+                command.Execute();
             }
         }
     }

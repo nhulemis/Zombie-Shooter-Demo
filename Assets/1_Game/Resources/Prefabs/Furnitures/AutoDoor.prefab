@@ -350,6 +350,14 @@ MonoBehaviour:
   _doorParts:
   - {fileID: 6301674696713416976}
   - {fileID: 230566165668881090}
+  _doorStateChangeCommands:
+  - rid: 8364553696708395296
+  references:
+    version: 2
+    RefIds:
+    - rid: 8364553696708395296
+      type: {class: ReBuildNavMeshCommand, ns: _1_Game.Scripts.Systems.AI.PathFinding, asm: Assembly-CSharp}
+      data: 
 --- !u!1 &1012053238403209966
 GameObject:
   m_ObjectHideFlags: 0

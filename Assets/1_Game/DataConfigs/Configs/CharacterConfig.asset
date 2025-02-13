@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4660868789749568012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51c830fdee74f9e8fd64a4144d8daa5, type: 3}
+  m_Name: BaseZombieConfig
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  id: BaseZombieConfig
+  Mass: 2
+  MoveSpeed: 2
+  JumpForce: 2
+  RotationSpeed: 10
+  AimOffsetAngle: 10
+  AttackRange: 2
+  OverrideClips:
+  - MappingTo: AC_Idle
+    Clip: {fileID: 7400000, guid: da0efa2f5123d47238b90a9b860d690b, type: 2}
+  - MappingTo: AC_Run
+    Clip: {fileID: 7400000, guid: cc8de987e0c604dbc8b9fee393e5cf8f, type: 2}
+  - MappingTo: AC_Walking
+    Clip: {fileID: 7400000, guid: 0a927d11c5f5d4d0e9540818dfb1382f, type: 2}
 --- !u!114 &-1360119056201419813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,6 +62,8 @@ MonoBehaviour:
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 10
+  AttackRange: 2
+  OverrideClips: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +91,7 @@ MonoBehaviour:
   - {fileID: 9216047634933520099}
   - {fileID: -1360119056201419813}
   - {fileID: 4263373524345201056}
+  - {fileID: -4660868789749568012}
 --- !u!114 &3294436437251181292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +119,8 @@ MonoBehaviour:
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 18
+  AttackRange: 2
+  OverrideClips: []
 --- !u!114 &4263373524345201056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +148,8 @@ MonoBehaviour:
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 10
+  AttackRange: 2
+  OverrideClips: []
 --- !u!114 &9216047634933520099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,3 +177,5 @@ MonoBehaviour:
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 10
+  AttackRange: 2
+  OverrideClips: []

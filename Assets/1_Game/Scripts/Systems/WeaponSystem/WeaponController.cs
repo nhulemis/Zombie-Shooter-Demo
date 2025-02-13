@@ -20,6 +20,12 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             if (_rightHandAttachComponent == null)
             {
                 _rightHandAttachComponent = GetComponentInChildren<AttachComponent>();
+                if (_rightHandAttachComponent == null)
+                {
+                    var rightHand = new GameObject("RightHandAttachComponent");
+                    _rightHandAttachComponent = rightHand.AddComponent<AttachComponent>();
+                    rightHand.transform.SetParent(transform);
+                }
             }
         }
 

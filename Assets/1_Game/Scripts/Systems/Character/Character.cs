@@ -32,6 +32,7 @@ namespace _1_Game.Systems.Character
         {
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
             _weaponController.Init(this);
+            _animationController.Init(CharacterDataConfig);
         }
 
         protected float VerticalMovement()
@@ -69,6 +70,7 @@ namespace _1_Game.Systems.Character
         protected void OverrideCharacterConfig(string characterConfigID)
         {
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(characterConfigID);
+            _animationController.ApplyOverrideConfig(CharacterDataConfig);
             Log.Debug("[Character] Character Config Overridden: " + characterConfigID);
         }
         
@@ -77,11 +79,19 @@ namespace _1_Game.Systems.Character
             _weaponController.SwitchWeaponToIdleHand();
             _weaponController.EquipWeapon(grenade);
             _animationController.EquipWeapon(grenade);
+            OverrideCharacterConfig(grenade.WeaponDataSet.overrideCharacterDataConfig);
             var grenadeThrow = _weaponController.EquippedWeapon;
             float timeToPlayAnim = _animationController.Execute_GrenadeThrow(grenadeThrow);
             await UniTask.Delay(TimeSpan.FromSeconds(timeToPlayAnim / 6));
             _weaponController.ThrowGrenade();
             _animationController.EquipWeapon(_weaponController.EquippedWeapon);
+            OverrideCharacterConfig(_weaponController.EquippedWeapon.WeaponDataSet.overrideCharacterDataConfig);
+
+        }
+        
+        public void Execute_MovementAnimation(CharacterAnimationController.MovementParameters parameters)
+        {
+            _animationController.Execute_MovementAnimation(parameters);
         }
 
     }
