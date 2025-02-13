@@ -1,4 +1,4 @@
-namespace _1_Game.Scripts.Systems.WeaponSystem.Projectile
+namespace _1_Game.Scripts.Systems.WeaponSystem
 {
     public interface IProjectile
     {

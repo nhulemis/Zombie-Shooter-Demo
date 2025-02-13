@@ -71,9 +71,10 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Character enemy))
+            if (other.TryGetComponent(out CharacterActor enemy))
             {
-                if(_actor == null || enemy.GetHashCode() == _actor.GetHashCode()) return;
+                if(_actor == null ) return;
+                if(_actor.GetType() == enemy.GetType()) return;
                 enemy.TakeDamage(WeaponDataSet.damage);
             }
         }

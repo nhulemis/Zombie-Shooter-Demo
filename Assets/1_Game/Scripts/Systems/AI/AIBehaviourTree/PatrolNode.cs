@@ -11,9 +11,9 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
         private NavMeshAgent _agent;
         private List<Vector3> _patrolPoints;
         private int _currentPatrolIndex = 0;
-        private Character _actor;
+        private CharacterActor _actor;
 
-        public PatrolNode(Character actor,NavMeshAgent agent, List<Vector3> patrolPoints)
+        public PatrolNode(CharacterActor actor,NavMeshAgent agent, List<Vector3> patrolPoints)
         {
             this._agent = agent;
             this._patrolPoints = patrolPoints;

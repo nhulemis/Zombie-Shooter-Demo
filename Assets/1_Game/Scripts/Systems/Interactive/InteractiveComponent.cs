@@ -24,7 +24,7 @@ namespace _1_Game.Scripts.Systems.Interactive
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Player interactive))
+            if (other.TryGetComponent(out PlayerActor interactive))
             {
                 React();
             }
@@ -32,7 +32,7 @@ namespace _1_Game.Scripts.Systems.Interactive
         
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out Player interactive))
+            if (other.TryGetComponent(out PlayerActor interactive))
             {
                 ReactEnd();
             }

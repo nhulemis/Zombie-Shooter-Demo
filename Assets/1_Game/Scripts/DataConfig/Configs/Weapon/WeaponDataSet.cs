@@ -14,6 +14,11 @@ namespace Script.GameData.Weapon
         public float damage;
         public float attackRate;
         public float range;
+        public bool isAoEAttack;
+        [ShowIf("isAoEAttack")]
+        public float aoeRadius = 2;
+        [ShowIf("isAoEAttack")]
+        public float attackTime = 0.5f;
         public Vector3 equipedOffsetPosition;
         public Quaternion equipedOffsetRotation;
         

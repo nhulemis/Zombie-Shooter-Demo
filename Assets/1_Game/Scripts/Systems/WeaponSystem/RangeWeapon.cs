@@ -20,12 +20,20 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             if (WeaponDataSet.isSelfAttack) // the self attack
             {
                 _rangeActor.Attack(transform, targetDirection, WeaponDataSet);
+                if(TryGetComponent(out Projectile projectileComponent))
+                {
+                    projectileComponent.Init(WeaponDataSet, _actor);
+                }
             }
             else
             {
                 var projectilePrefab = await AssetLoader.Load<GameObject>(WeaponDataSet.projectilePrefab);
                 var projectile = Instantiate(projectilePrefab, _firePoint.position, Quaternion.identity);
                 projectile.transform.forward = _firePoint.forward;
+                if(projectile.TryGetComponent(out Projectile projectileComponent))
+                {
+                    projectileComponent.Init(WeaponDataSet , _actor);
+                }
                 _rangeActor.Attack(projectile.transform, _firePoint.forward, WeaponDataSet);
             }
         }

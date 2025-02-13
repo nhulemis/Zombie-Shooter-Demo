@@ -52,6 +52,8 @@ MonoBehaviour:
   damage: 11
   attackRate: 0.1
   range: 20
+  isAoEAttack: 0
+  aoeRadius: 2
   equipedOffsetPosition: {x: -0.03, y: 0.131, z: 0.068}
   equipedOffsetRotation: {x: -0.6360975, y: 0.50723624, z: 0.45150554, w: 0.3663798}
   overrideCharacterDataConfig: EquipGunCharacterConfig
@@ -92,6 +94,8 @@ MonoBehaviour:
   damage: 0
   attackRate: 0.25
   range: 5
+  isAoEAttack: 1
+  aoeRadius: 2
   equipedOffsetPosition: {x: 0.032, y: 0.073, z: 0.043}
   equipedOffsetRotation: {x: 0, y: 0, z: 0, w: 0}
   overrideCharacterDataConfig: EquipGrenadeConfig
@@ -132,6 +136,8 @@ MonoBehaviour:
   damage: 5
   attackRate: 2
   range: 2
+  isAoEAttack: 0
+  aoeRadius: 2
   equipedOffsetPosition: {x: 0, y: 0.278, z: 0.033}
   equipedOffsetRotation: {x: 0, y: 0, z: 0, w: 0}
   overrideCharacterDataConfig: none
@@ -179,6 +185,8 @@ MonoBehaviour:
   damage: 20
   attackRate: 0.75
   range: 2
+  isAoEAttack: 0
+  aoeRadius: 2
   equipedOffsetPosition: {x: 0.032, y: 0.073, z: 0.043}
   equipedOffsetRotation: {x: -0.0035028064, y: 0.0016331017, z: 0.60345155, w: 0.7973903}
   overrideCharacterDataConfig: EquipMleeCharacterConfig

@@ -18,7 +18,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem.Commands
         
         public async UniTask Execute()
         {
-            Player player = GameObject.FindAnyObjectByType<Player>();
+            PlayerActor player = GameObject.FindAnyObjectByType<PlayerActor>();
             if (player == null) return;
             var weapon = _pickupable as Weapon;
             Assert.IsNotNull(weapon, "Class Weapon is not implement IPickupableObject");

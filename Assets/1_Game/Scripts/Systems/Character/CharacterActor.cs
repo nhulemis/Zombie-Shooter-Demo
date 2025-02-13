@@ -14,7 +14,7 @@ namespace _1_Game.Systems.Character
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(CharacterAnimationController))]
     [RequireComponent(typeof(WeaponController))]
-    public class Character : MonoBehaviour
+    public class CharacterActor : MonoBehaviour
     {
         [SerializeField] protected CharacterAnimationController _animationController;
         [SerializeField] protected CharacterController _controller;
@@ -29,12 +29,14 @@ namespace _1_Game.Systems.Character
         protected CharacterDataConfig CharacterDataConfig;
         protected float VerticalVelocity;
         protected bool isAiming;
+        protected float health;
 
         private void Awake()
         {
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
             _weaponController.Init(this);
             _animationController.Init(CharacterDataConfig);
+            health = CharacterDataConfig.Health;
         }
 
         public virtual void Attack()
@@ -105,8 +107,21 @@ namespace _1_Game.Systems.Character
         public void TakeDamage(float damage)
         {
             Log.Debug($"[Character] {name} took {damage} damage");
+            health -= damage;
+            if (health <= 0)
+            {
+                Die();
+            }
         }
-        
+
+        private async void Die()
+        {
+            _controller.enabled = false;
+            await _animationController.Execute_DeathAnimation();
+            this.enabled = false;
+            Destroy(gameObject);
+        }
+
         public void PickupWeapon(Weapon weapon)
         {
             OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);

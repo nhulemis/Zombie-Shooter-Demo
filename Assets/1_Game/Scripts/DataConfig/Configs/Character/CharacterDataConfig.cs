@@ -16,6 +16,7 @@ namespace Script.GameData
         public float RotationSpeed = 10f;
         public float AimOffsetAngle = 10f;
         public float AttackRange = 2f;
+        public float Health = 50f;
         
         [FoldoutGroup("Animation Override")]
         public List<OverrideClip> OverrideClips = new List<OverrideClip>();

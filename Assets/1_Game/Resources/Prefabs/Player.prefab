@@ -144,7 +144,7 @@ MonoBehaviour:
   _isPlayer: 1
   _input:
     rid: 8364553628744155489
-  _isAutoAim: 0
+  _isAutoAim: 1
   references:
     version: 2
     RefIds:

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 namespace _1_Game.Systems.Character
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : Character
+    public class EnemyActor : CharacterActor
     {
         private Node rootNode;
         private NavMeshAgent agent;
@@ -21,7 +21,7 @@ namespace _1_Game.Systems.Character
         {
             agent = GetComponent<NavMeshAgent>();
             animator = _animationController.Animator;
-            player = FindFirstObjectByType<Player>().transform;
+            player = FindFirstObjectByType<PlayerActor>().transform;
 
             ConditionNode checkPlayerInRange = new ConditionNode(() =>
             {

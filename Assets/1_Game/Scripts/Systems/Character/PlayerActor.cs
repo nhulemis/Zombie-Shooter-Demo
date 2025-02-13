@@ -9,23 +9,21 @@ using UnityEngine;
 
 namespace _1_Game.Systems.Character
 {
-    public class Player : Character
+    public class PlayerActor : CharacterActor
     {
         [SerializeField] private bool _isPlayer;
 
         [EnableIf("_isPlayer"), SerializeReference]
         private IPlayerInput _input;
-
-        [ShowIf("_isPlayer"), SerializeField] private bool _isAutoAim;
-        
         private Transform _aimTarget;
+        private AutoAimingActorComponent _autoAimingActorComponent;
 
         private void Start()
         {
             _input.Initialize();
             _aimTarget = new GameObject("AimTarget").transform;
-            _aimTarget.AddComponent<AimingToMouseActorComponent>();
-            isAiming = _isAutoAim;
+            _autoAimingActorComponent = _aimTarget.AddComponent<AutoAimingActorComponent>();
+            _autoAimingActorComponent.Init(this);
         }
 
         private void FixedUpdate()
@@ -33,6 +31,7 @@ namespace _1_Game.Systems.Character
             if (!_isPlayer) return;
             Movement();
             Attack();
+            isAiming = _autoAimingActorComponent.IsAiming;
         }
 
         public override void Attack()
@@ -93,8 +92,13 @@ namespace _1_Game.Systems.Character
             Log.Debug("Player triggered with: " + other.gameObject.name);
         }
 
-        
-
-        
+        private void OnDrawGizmos()
+        {
+            if (_aimTarget != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(_aimTarget.position, 0.5f);
+            }
+        }
     }
 }

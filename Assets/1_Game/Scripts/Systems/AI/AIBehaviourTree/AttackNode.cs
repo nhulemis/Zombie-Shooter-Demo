@@ -6,9 +6,9 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
     public class AttackNode : Node
     {
         private float _lastAttackTime = 0f;
-        private Character _actor;
+        private CharacterActor _actor;
 
-        public AttackNode(Character actor)
+        public AttackNode(CharacterActor actor)
         {
             _actor = actor;
         }

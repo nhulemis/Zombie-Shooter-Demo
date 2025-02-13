@@ -168,6 +168,11 @@ namespace _1_Game.Systems.Character
                 ReplaceAnimationClip(clip.MappingTo, clip.Clip);
             }
         }
+
+        public async UniTask Execute_DeathAnimation()
+        {
+            await UniTask.Delay(500);
+        }
     }
 
     public class AnimationClipOverrides : Dictionary<AnimationClip, AnimationClip>

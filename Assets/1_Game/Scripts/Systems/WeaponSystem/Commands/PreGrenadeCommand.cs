@@ -17,7 +17,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem.Commands
         private GameDataBase gameDataBase => Locator<GameDataBase>.Get();
         public async UniTask Execute()
         {
-            var player = GameObject.FindAnyObjectByType<Player>();
+            var player = GameObject.FindAnyObjectByType<PlayerActor>();
             Assert.IsNotNull(player, "Player not found");
             var key = gameDataBase.Get<AddressableMappingConfig>().GetPathId<GrenadeActor>();
             Assert.IsNotNull(key, "the key type GrenadeActor not defined in AddressableMappingConfig");

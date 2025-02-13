@@ -23,9 +23,9 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         
         protected bool _isReadyToAttack = true;
         protected float _lastAttackTime = 0;
-        protected Character _actor;
+        protected CharacterActor _actor;
 
-        public void Init(Character actor)
+        public void Init(CharacterActor actor)
         {
             Log.Debug("[Base] Weapon init");
             _actor = actor;

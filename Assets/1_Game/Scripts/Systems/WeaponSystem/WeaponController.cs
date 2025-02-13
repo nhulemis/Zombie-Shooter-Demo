@@ -13,9 +13,9 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         public bool IsEquippedWeapon => _rightHandAttachComponent.IsEquippedWeapon;
         
         public Weapon EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
-        private Character _actor;
+        private CharacterActor _actor;
         
-        public void Init(Character character)
+        public void Init(CharacterActor character)
         {
             Log.Debug("WeaponController Init");
             _actor = character;

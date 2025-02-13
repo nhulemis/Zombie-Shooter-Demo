@@ -9,7 +9,7 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
     {
         public struct MoveParams
         {
-            public Character Character;
+            public CharacterActor Character;
             public NavMeshAgent Agent;
             public Transform Player;
             public CharacterDataConfig CharacterDataConfig;

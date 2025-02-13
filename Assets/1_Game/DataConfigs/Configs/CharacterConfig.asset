@@ -28,6 +28,7 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 10
   AttackRange: 1
+  Health: 50
   OverrideClips:
   - MappingTo: AC_Idle
     Clip: {fileID: 7400000, guid: da0efa2f5123d47238b90a9b860d690b, type: 2}
@@ -69,6 +70,7 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 10
   AttackRange: 2
+  Health: 150
   OverrideClips: []
 --- !u!114 &11400000
 MonoBehaviour:
@@ -126,6 +128,7 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 18
   AttackRange: 2
+  Health: 150
   OverrideClips: []
 --- !u!114 &4263373524345201056
 MonoBehaviour:
@@ -155,6 +158,7 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 10
   AttackRange: 2
+  Health: 150
   OverrideClips: []
 --- !u!114 &9216047634933520099
 MonoBehaviour:
@@ -184,4 +188,5 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 10
   AttackRange: 2
+  Health: 150
   OverrideClips: []
