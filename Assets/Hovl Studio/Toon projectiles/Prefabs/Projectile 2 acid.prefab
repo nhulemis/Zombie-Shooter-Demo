@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4878814061148674}
-  - component: {fileID: 114981488265921506}
   - component: {fileID: 54908155343697094}
   - component: {fileID: 135651835456056574}
-  - component: {fileID: -7375429859995637986}
+  - component: {fileID: 2069335013342656693}
   m_Layer: 0
   m_Name: Projectile 2 acid
   m_TagString: Untagged
@@ -29,39 +28,13 @@ Transform:
   m_GameObject: {fileID: 1049895169098164}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -1.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2189638646452515160}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114981488265921506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049895169098164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 605a456cfc02f6b499a64717539a27e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 12
-  hitOffset: 0.1
-  UseFirePointRotation: 1
-  rotationOffset: {x: 0, y: 0, z: 0}
-  hit: {fileID: 6687870158276300843}
-  hitPS: {fileID: 6779847799419597131}
-  flash: {fileID: 802178712430623745}
-  rb: {fileID: 54908155343697094}
-  col: {fileID: 135651835456056574}
-  lightSourse: {fileID: 0}
-  Detached:
-  - {fileID: 1087620334247294}
-  projectilePS: {fileID: 1132049205864586564}
-  notDestroy: 1
 --- !u!54 &54908155343697094
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -110,7 +83,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7375429859995637986
+--- !u!114 &2069335013342656693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,13 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1049895169098164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ad04c63ab892ea45b1dbc2bd2ba2f3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 13e4e04a71ed4c94940aea1733e9e4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: 
-  prefab: {fileID: -7375429859995637986}
-  rejoinMode: 1
-  delayBeforeAutoRejoin: 3
+  _explosionPrefab: {fileID: 1186752452136346, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
+  _isAOE: 0
 --- !u!1 &1087620334247294
 GameObject:
   m_ObjectHideFlags: 0
@@ -4913,6 +4884,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -9764,6 +9738,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -14664,6 +14641,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -14820,11 +14800,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
---- !u!1 &802178712430623745 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1554156215293492, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
-  m_PrefabInstance: {fileID: 802885616016419381}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &807396855357820773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4537818801186128, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
@@ -14943,18 +14918,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
---- !u!1 &6687870158276300843 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1186752452136346, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
-  m_PrefabInstance: {fileID: 6689007775552773553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6691006299164732307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4252801894676002, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
-  m_PrefabInstance: {fileID: 6689007775552773553}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6779847799419597131 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198996790382980346, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
   m_PrefabInstance: {fileID: 6689007775552773553}
   m_PrefabAsset: {fileID: 0}

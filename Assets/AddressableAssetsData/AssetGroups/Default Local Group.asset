@@ -35,6 +35,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b2ad6251043bdf498f7d207e054fce5
+    m_Address: Assets/Hovl Studio/Toon projectiles/Prefabs/Projectile 2 acid.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b614c0b085f0d4e8e87d467d1fa99faa
     m_Address: Assets/1_Game/Resources_moved/Prefabs/Weapons/GrenadeStun.prefab
     m_ReadOnly: 0

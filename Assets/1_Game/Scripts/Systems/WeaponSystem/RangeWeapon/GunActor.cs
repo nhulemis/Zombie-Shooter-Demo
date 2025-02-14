@@ -28,8 +28,8 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             
             var rb = actor.GetComponent<Rigidbody>();
             
-            Log.Debug("Grenade attack");
-            actor.DOPath(new []{startPos,peakPos,endPos}, throwDuration)
+            Log.Debug("Gun attack");
+            actor.DOPath(new []{startPos,endPos}, throwDuration)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {

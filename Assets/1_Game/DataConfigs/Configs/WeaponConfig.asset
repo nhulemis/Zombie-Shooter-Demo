@@ -50,7 +50,7 @@ MonoBehaviour:
       type: {class: StunDamageEffectAction, ns: _1_Game.Scripts.Systems.WeaponSystem.DamageEffect, asm: Assembly-CSharp}
       data:
         _effectPrefab:
-          m_AssetGUID: 90375796f996bff4cabed66da5e558cb
+          m_AssetGUID: 26e1cb216e3635e4a820f58a1118d6b9
           m_SubObjectName: 
           m_SubObjectGUID: 
           m_SubObjectType: 
@@ -84,6 +84,55 @@ MonoBehaviour:
   - {fileID: 6595990790466054101}
   - {fileID: 8220903800279279065}
   - {fileID: -239411540798607444}
+  - {fileID: 583159701427003857}
+--- !u!114 &583159701427003857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ed08ad3104f629e56efcc4fb061f7, type: 3}
+  m_Name: PoisonGun
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  id: PoisonGun
+  damage: 15
+  attackRate: 1
+  range: 20
+  isAoEAttack: 0
+  aoeRadius: 2
+  attackTime: 0.5
+  equipedOffsetPosition: {x: -0.03, y: 0.131, z: 0.068}
+  equipedOffsetRotation: {x: -0.6360975, y: 0.50723624, z: 0.45150554, w: 0.3663798}
+  overrideCharacterDataConfig: none
+  isSelfAttack: 0
+  projectilePrefab:
+    m_AssetGUID: 9b2ad6251043bdf498f7d207e054fce5
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  hasAttack: 0
+  comboAttackData: []
+  hasDamageEffect: 0
+  damageEffect:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &4019222089713566084
 MonoBehaviour:
   m_ObjectHideFlags: 0

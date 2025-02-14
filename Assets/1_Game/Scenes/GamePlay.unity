@@ -17621,6 +17621,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_05
       objectReference: {fileID: 0}
+    - target: {fileID: 8073120482455059619, guid: 1903ddae03ad244ba9da904f215c8155, type: 3}
+      propertyPath: _weapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073120482455059619, guid: 1903ddae03ad244ba9da904f215c8155, type: 3}
+      propertyPath: '_weapons.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3877775709148159953, guid: 6906aba6435ec41128de4f8ddd7ed626, type: 3}
     - target: {fileID: 9151093782595329195, guid: 1903ddae03ad244ba9da904f215c8155, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.28

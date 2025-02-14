@@ -69,6 +69,13 @@ namespace UnityEngine.SceneManagement
         {
             if (_idleHand == null || !_idleHand.IsEquippedWeapon) return;
 
+            var currentWeapon = DetachWeapon();
+            if (currentWeapon != null)
+            {
+                currentWeapon.gameObject.SetActive(false);
+                currentWeapon.transform.SetParent(null);
+                Destroy(currentWeapon.gameObject, 0.5f);
+            }
             WeaponActorComponent weapon = _idleHand.DetachWeapon();
             weapon.gameObject.SetActive(true);
             AttachWeapon(weapon);
