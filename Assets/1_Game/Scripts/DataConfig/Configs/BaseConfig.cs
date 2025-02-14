@@ -11,6 +11,7 @@ namespace Script.GameData
 {
     public class BaseConfig : SerializedScriptableObject, IComparable<BaseConfig>
     {
+        [ReadOnly]
         public string id;
         protected virtual IList Items { get; }
         public int CompareTo(BaseConfig obj)

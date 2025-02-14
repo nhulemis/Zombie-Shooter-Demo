@@ -22,7 +22,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem.Commands
             var key = gameDataBase.Get<AddressableMappingConfig>().GetPathId<GrenadeActor>();
             Assert.IsNotNull(key, "the key type GrenadeActor not defined in AddressableMappingConfig");
             var grenadeGameObject = await AssetLoader.Load<GameObject>(key);
-            var grenade = grenadeGameObject.GetComponent<Weapon>();
+            var grenade = grenadeGameObject.GetComponent<WeaponActorComponent>();
             Assert.IsNotNull(grenade, "Weapon not found in the prefab");
             player.ExecuteGrenade(grenade);
         }

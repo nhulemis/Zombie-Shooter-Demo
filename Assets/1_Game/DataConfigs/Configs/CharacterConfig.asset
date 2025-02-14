@@ -42,6 +42,9 @@ MonoBehaviour:
     Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
   - MappingTo: AC_Combo02
     Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
+  HasSpell: 0
+  CountDownTime: 10
+  SpellIds: []
 --- !u!114 &-1360119056201419813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +75,9 @@ MonoBehaviour:
   AttackRange: 2
   Health: 150
   OverrideClips: []
+  HasSpell: 0
+  CountDownTime: 10
+  SpellIds: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +106,7 @@ MonoBehaviour:
   - {fileID: -1360119056201419813}
   - {fileID: 4263373524345201056}
   - {fileID: -4660868789749568012}
+  - {fileID: 6154324430041700617}
 --- !u!114 &3294436437251181292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +137,9 @@ MonoBehaviour:
   AttackRange: 2
   Health: 150
   OverrideClips: []
+  HasSpell: 0
+  CountDownTime: 10
+  SpellIds: []
 --- !u!114 &4263373524345201056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +170,56 @@ MonoBehaviour:
   AttackRange: 2
   Health: 150
   OverrideClips: []
+  HasSpell: 0
+  CountDownTime: 10
+  SpellIds: []
+--- !u!114 &6154324430041700617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51c830fdee74f9e8fd64a4144d8daa5, type: 3}
+  m_Name: ZombieBoss
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  id: ZombieBoss
+  Mass: 2
+  MoveSpeed: 1.5
+  JumpForce: 2
+  RotationSpeed: 10
+  AimOffsetAngle: 10
+  AttackRange: 2
+  Health: 150
+  OverrideClips:
+  - MappingTo: AC_Idle
+    Clip: {fileID: 7400000, guid: da0efa2f5123d47238b90a9b860d690b, type: 2}
+  - MappingTo: AC_Run
+    Clip: {fileID: 7400000, guid: cc8de987e0c604dbc8b9fee393e5cf8f, type: 2}
+  - MappingTo: AC_Walking
+    Clip: {fileID: 7400000, guid: 0a927d11c5f5d4d0e9540818dfb1382f, type: 2}
+  - MappingTo: AC_Idle_Sword_01
+    Clip: {fileID: 7400000, guid: da0efa2f5123d47238b90a9b860d690b, type: 2}
+  - MappingTo: AC_Combo01
+    Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
+  - MappingTo: AC_Combo02
+    Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
+  HasSpell: 1
+  CountDownTime: 10
+  SpellIds:
+  - AttackByGrenade
+  - AttackByGun
 --- !u!114 &9216047634933520099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +250,6 @@ MonoBehaviour:
   AttackRange: 2
   Health: 150
   OverrideClips: []
+  HasSpell: 0
+  CountDownTime: 10
+  SpellIds: []

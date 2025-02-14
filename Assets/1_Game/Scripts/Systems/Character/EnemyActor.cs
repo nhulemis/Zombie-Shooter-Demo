@@ -33,7 +33,8 @@ namespace _1_Game.Systems.Character
 
             ConditionNode checkPlayerInAttackRange = new ConditionNode(() =>
             {
-                return Vector3.Distance(transform.position, player.position) < CharacterDataConfig.AttackRange + 0.5f;
+                return Vector3.Distance(transform.position, player.position) <
+                       CharacterDataConfig.AttackRange + 0.5f;
             });
 
             // Actions
@@ -45,7 +46,7 @@ namespace _1_Game.Systems.Character
 
             MoveToPlayerNode moveToPlayer = new MoveToPlayerNode(moveParams);
             PatrolNode patrol = new PatrolNode(this, agent, PatrolPoints());
-            AttackNode attack = new AttackNode(this);
+            AttackNode attack = new AttackNode(this, player);
 
             rootNode = new SelectorNode(new List<Node>
             {
@@ -71,12 +72,12 @@ namespace _1_Game.Systems.Character
 
             return output;
         }
-        
+
         public override void Attack()
         {
             if (Weapon != null)
             {
-                _weaponController.Attack(player.position);
+                Attack(player.position);
             }
         }
 
@@ -91,12 +92,13 @@ namespace _1_Game.Systems.Character
             {
                 return hit.position; // Return a valid NavMesh position
             }
+
             return Vector3.zero; // Invalid position
         }
 
         void Update()
         {
-            if(IsStunned) return;
+            if (IsStunned) return;
             rootNode.Evaluate();
         }
     }

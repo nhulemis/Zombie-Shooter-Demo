@@ -75,7 +75,7 @@ namespace _1_Game.Systems.Character
             }
         }
 
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(WeaponActorComponent weapon)
         {
             ResetWeightLayer();
             int layerAimingIndex = _animator.GetLayerIndex(weapon.PoseLayerName);
@@ -132,7 +132,7 @@ namespace _1_Game.Systems.Character
         /// </summary>
         /// <param name="grenade"></param>
         /// <returns>Time play the aimation</returns>
-        public float Execute_GrenadeThrow(Weapon grenade)
+        public float Execute_GrenadeThrow(WeaponActorComponent grenade)
         {
             _animator.SetTrigger(_grenadeThrowHash);
             int layerIndex = _animator.GetLayerIndex(grenade.PoseLayerName);
@@ -141,7 +141,7 @@ namespace _1_Game.Systems.Character
             return clipLength;
         }
 
-        public async UniTask<float> AttackByAnimation(ComboAttackData attackData, Weapon weapon)
+        public async UniTask<float> AttackByAnimation(ComboAttackData attackData, WeaponActorComponent weapon)
         {
             if (attackData == null)
             {

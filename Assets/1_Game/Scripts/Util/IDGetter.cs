@@ -63,5 +63,14 @@ namespace _1_Game.Scripts.Util
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
             return animationLayerMappingConfig.GetAllClips();
         }
+        
+        public static IEnumerable GetSpellDataSets()
+        {
+#if !UNITY_EDITOR
+            return new List<string>();
+#endif
+            var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<SpellConfig>();
+            return animationLayerMappingConfig.GetSpellDataSets();
+        }
     }
 }

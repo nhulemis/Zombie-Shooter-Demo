@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: e688c0662101f487d87e789eb11d4d2b
   m_SerializeEntries:
+  - m_GUID: 8259ff94592dc4a9db9070c4b64605bc
+    m_Address: Assets/1_Game/Resources_moved/Prefabs/SpellCasting.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90375796f996bff4cabed66da5e558cb
     m_Address: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR2 Cartoon
       Fight (Loop).prefab

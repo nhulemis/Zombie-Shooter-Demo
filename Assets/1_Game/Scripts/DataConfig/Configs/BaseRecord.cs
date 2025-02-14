@@ -6,6 +6,7 @@ namespace Script.GameData
     [Serializable]
     public class BaseRecord : SerializedScriptableObject
     {
+        [ReadOnly]
         public string id;
     }
 }

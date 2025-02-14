@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _1_Game.Scripts.Systems.WeaponSystem
 {
-    public class MeleeWeapon : Weapon
+    public class MeleeWeapon : WeaponActorComponent
     {
         private ComboAttackData currentComboAttackData;
         

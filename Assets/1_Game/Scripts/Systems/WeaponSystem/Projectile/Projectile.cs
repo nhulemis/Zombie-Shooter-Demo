@@ -17,6 +17,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         {
             _weaponDataSet = weaponDataSet;
             _owner = owner;
+            transform.SetParent(null);
         }
 
         private void OnCollisionEnter(Collision other)
@@ -44,7 +45,6 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
 
         protected void Explode()
         {
-            Log.Debug("Projectile explode");
             var explosion = Instantiate(_explosionPrefab, transform.position + Vector3.up, Quaternion.identity);
             Destroy(explosion, 1f);
 

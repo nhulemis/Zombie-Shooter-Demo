@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &395840980902217813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1331095248464626461}
+  - component: {fileID: 108850528542682175}
+  m_Layer: 9
+  m_Name: idleHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1331095248464626461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395840980902217813}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9151093782595329195}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &108850528542682175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395840980902217813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e2bd6dbb6647f8bdf4182efa416166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _body: {fileID: 1785268140923198672}
+  _bindToBone: {fileID: 5003594021337263864}
+  _idleHand: {fileID: 5377655864261451546}
 --- !u!1 &2395493335717428230
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +83,7 @@ Transform:
   m_Children:
   - {fileID: 1785268140923198672}
   - {fileID: 5043013330465380043}
+  - {fileID: 1331095248464626461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &6667870141626531723
@@ -93,6 +141,7 @@ MonoBehaviour:
   _rightHandAttachComponent: {fileID: 5377655864261451546}
   _weapons:
   - {fileID: 1055222608851134679, guid: 7a2a319f0fb9a49aaad293bd2e699966, type: 3}
+  - {fileID: 4674069278389591950, guid: b614c0b085f0d4e8e87d467d1fa99faa, type: 3}
 --- !u!114 &7488361923285067418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +157,8 @@ MonoBehaviour:
   _animationController: {fileID: 7482494978117084636}
   _controller: {fileID: 6667870141626531723}
   _weaponController: {fileID: 8073120482455059619}
-  _characterConfigID: BaseZombieConfig
+  _characterConfigID: ZombieBoss
+  CharacterDataConfig: {fileID: 0}
   detectionRange: 10
   pointsPatrol: 3
   radius: 5
@@ -180,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _body: {fileID: 1785268140923198672}
   _bindToBone: {fileID: 502606957565838579}
-  _idleHand: {fileID: 0}
+  _idleHand: {fileID: 108850528542682175}
 --- !u!1001 &2255233138168036155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232,6 +282,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4f891dab1fd234acfbf78b3a64b1017f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f891dab1fd234acfbf78b3a64b1017f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8183481454299698827, guid: 4f891dab1fd234acfbf78b3a64b1017f, type: 3}
       propertyPath: m_Layer
@@ -538,6 +592,11 @@ Transform:
 --- !u!4 &1785268140923198672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f891dab1fd234acfbf78b3a64b1017f, type: 3}
+  m_PrefabInstance: {fileID: 2255233138168036155}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5003594021337263864 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6502182839619065283, guid: 4f891dab1fd234acfbf78b3a64b1017f, type: 3}
   m_PrefabInstance: {fileID: 2255233138168036155}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &5631372272526771882 stripped

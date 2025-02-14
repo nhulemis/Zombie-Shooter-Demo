@@ -39,7 +39,7 @@ namespace _1_Game.Systems.Character
         {
             if (_input.IsAttacking())
             {
-                _weaponController.Attack( _aimTarget.position);
+                _weaponController.AttackBy( _aimTarget.position);
             }
         }
 

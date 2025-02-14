@@ -20,7 +20,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem.Commands
         {
             PlayerActor player = GameObject.FindAnyObjectByType<PlayerActor>();
             if (player == null) return;
-            var weapon = _pickupable as Weapon;
+            var weapon = _pickupable as WeaponActorComponent;
             Assert.IsNotNull(weapon, "Class Weapon is not implement IPickupableObject");
             player.PickupWeapon(weapon);
         }

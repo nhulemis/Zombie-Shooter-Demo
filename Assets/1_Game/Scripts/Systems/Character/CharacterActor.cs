@@ -7,10 +7,10 @@ using _1_Game.Scripts.Systems.WeaponSystem.DamageEffect;
 using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
 using Script.GameData;
-using Script.GameData.Weapon;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _1_Game.Systems.Character
 {
@@ -23,13 +23,13 @@ namespace _1_Game.Systems.Character
         [SerializeField] protected CharacterController _controller;
         [SerializeField] protected WeaponController _weaponController;
         [SerializeField, ValueDropdown("CharacterConfigID")] string _characterConfigID;
-
+        
         public IEnumerable CharacterConfigID => IDGetter.GetCharacterConfigs();
         public CharacterAnimationController AnimationController => _animationController;
         
-        public Weapon Weapon => _weaponController.EquippedWeapon;
+        public WeaponActorComponent Weapon => _weaponController.EquippedWeapon;
         
-        protected CharacterDataConfig CharacterDataConfig;
+        public CharacterDataConfig CharacterDataConfig;
         protected float VerticalVelocity;
         protected bool isAiming;
         protected float health;
@@ -38,7 +38,9 @@ namespace _1_Game.Systems.Character
         {
             get => RxIsStunned.Value;
             set => RxIsStunned.Value = value;
-        }        
+        }
+
+        public WeaponController WeaponController => _weaponController;
 
         private void Awake()
         {
@@ -50,6 +52,11 @@ namespace _1_Game.Systems.Character
 
         public virtual void Attack()
         {
+        }
+        
+        public virtual void Attack(Vector3 target)
+        {
+            _weaponController.AttackTo(target);
         }
 
         protected float VerticalMovement()
@@ -93,19 +100,21 @@ namespace _1_Game.Systems.Character
             Log.Debug("[Character] Character Config Overridden: " + characterConfigID);
         }
         
-        public async void ExecuteGrenade(Weapon grenade)
+        public async void ExecuteGrenade(WeaponActorComponent grenade)
         {
-            _weaponController.SwitchWeaponToIdleHand();
-            _weaponController.EquipWeapon(grenade);
-            _animationController.EquipWeapon(grenade);
-            OverrideCharacterConfig(grenade.WeaponDataSet.overrideCharacterDataConfig);
+            PickupWeapon(grenade);
             var grenadeThrow = _weaponController.EquippedWeapon;
             float timeToPlayAnim = _animationController.Execute_GrenadeThrow(grenadeThrow);
             await UniTask.Delay(TimeSpan.FromSeconds(timeToPlayAnim / 6));
             _weaponController.ThrowGrenade();
+            RetrieveWeaponFromIdleHand();
+        }
+        
+        private void RetrieveWeaponFromIdleHand()
+        {
+            _weaponController.RetrieveWeaponFromIdleHand();
             _animationController.EquipWeapon(_weaponController.EquippedWeapon);
             OverrideCharacterConfig(_weaponController.EquippedWeapon.WeaponDataSet.overrideCharacterDataConfig);
-
         }
         
         public void Execute_MovementAnimation(CharacterAnimationController.MovementParameters parameters)
@@ -131,11 +140,12 @@ namespace _1_Game.Systems.Character
             Destroy(gameObject);
         }
 
-        public void PickupWeapon(Weapon weapon)
+        public void PickupWeapon(WeaponActorComponent weapon)
         {
-            OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);
+            _weaponController.SwitchWeaponToIdleHand();
             _weaponController.EquipWeapon(weapon);
             _animationController.EquipWeapon(weapon);
+            OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);
         }
 
         public async void ApplyDamageEffect(IDameEffectAction damageEffect)
@@ -153,6 +163,34 @@ namespace _1_Game.Systems.Character
             IsStunned = true;
             await UniTask.Delay(TimeSpan.FromSeconds(duration));
             IsStunned = false;
+        }
+
+        public string PickSpell()
+        {
+            // random spell
+            if(CharacterDataConfig.SpellIds.Count  > 0)
+            {
+                return CharacterDataConfig.SpellIds[UnityEngine.Random.Range(0, CharacterDataConfig.SpellIds.Count)];
+            }
+            return String.Empty;
+        }
+
+        public async void CastSpell(SpellDataSet spell, Transform target)
+        {
+            Log.Debug($"[Character] CastSpell {spell.id}");
+            bool result = await spell.beforeCastSpellActorCommand.Make(this).Execute();
+            if(result == false) return;
+            var prefab = await AssetLoader.Load<GameObject>(spell.spellRefKey);
+            var spellInstance = Instantiate(prefab, transform.position, Quaternion.identity);
+            var castSpellComponent = spellInstance.GetComponent<CastSpellPositionActorComponent>();
+            castSpellComponent.Init(spell, target, () =>
+            {
+                Attack(target.position);
+            });
+            castSpellComponent.CastSpell();
+            await UniTask.WaitUntil(castSpellComponent.IsSpellFinished);
+            await UniTask.Delay(TimeSpan.FromSeconds(1));
+            RetrieveWeaponFromIdleHand();
         }
     }
 }

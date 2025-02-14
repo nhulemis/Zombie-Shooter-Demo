@@ -9,11 +9,13 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
     public class WeaponController : MonoBehaviour
     {
         [FormerlySerializedAs("_attachComponent")] [SerializeField] private AttachComponent _rightHandAttachComponent;
-        [SerializeField] private Weapon[] _weapons;
+        [SerializeField] private WeaponActorComponent[] _weapons;
         public bool IsEquippedWeapon => _rightHandAttachComponent.IsEquippedWeapon;
         
-        public Weapon EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
+        public WeaponActorComponent EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
         private CharacterActor _actor;
+        
+        public WeaponActorComponent[] Weapons => _weapons;
         
         public void Init(CharacterActor character)
         {
@@ -40,7 +42,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             }
         }
 
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(WeaponActorComponent weapon)
         {
             if (weapon == null) return;
             var wpInstance = Instantiate(weapon);
@@ -63,15 +65,18 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             if (!IsEquippedWeapon) return;
             var weapon = _rightHandAttachComponent.DetachWeapon();
             weapon.Attack(transform.forward);
-            RetrieveWeaponFromIdleHand();
         }
 
-        public void Attack( Vector3 aimTargetPosition)
+        public void AttackBy(Vector3 direction)
         {
-            var targetDirection = aimTargetPosition - transform.position;
+            var targetDirection = direction - transform.position;
             EquippedWeapon?.Attack(targetDirection);
         }
 
-        
+
+        public void AttackTo(Vector3 target)
+        {
+            EquippedWeapon?.AttackTo(target);
+        }
     }
 }

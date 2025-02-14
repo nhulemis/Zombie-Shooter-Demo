@@ -12,7 +12,7 @@ using UnityEngine;
 namespace _1_Game.Scripts.Systems.WeaponSystem
 {
     [Serializable]
-    public class Weapon : MonoBehaviour , IPickupableObject
+    public class WeaponActorComponent : MonoBehaviour , IPickupableObject
     {
         [SerializeField]
         public WeaponDataSet WeaponDataSet;
@@ -32,6 +32,18 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         }
         
         public virtual void Attack( Vector3 targetDirection)
+        {
+            if (!_isReadyToAttack)
+            {
+                if (Time.time - _lastAttackTime > WeaponDataSet.attackRate)
+                {
+                    _isReadyToAttack = true;
+                    _lastAttackTime = Time.time;
+                }
+            }
+        }
+        
+        public virtual void AttackTo(Vector3 target)
         {
             if (!_isReadyToAttack)
             {

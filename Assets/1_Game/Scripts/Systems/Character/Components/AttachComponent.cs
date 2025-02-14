@@ -11,9 +11,9 @@ namespace UnityEngine.SceneManagement
         [SerializeField, ValueDropdown("BoneIds")] private Transform _bindToBone;
         [SerializeField] private AttachComponent _idleHand; // it can be another hand that is implemented AttackComponent
 
-        private Weapon equippedWeapon;
+        private WeaponActorComponent equippedWeapon;
         public bool IsEquippedWeapon => equippedWeapon != null;
-        public Weapon EquippedWeapon => equippedWeapon;
+        public WeaponActorComponent EquippedWeapon => equippedWeapon;
 
         private IEnumerable BoneIds()
         {
@@ -35,7 +35,7 @@ namespace UnityEngine.SceneManagement
             transform.rotation = _bindToBone.rotation;
         }
         
-        public void AttachWeapon(Weapon weapon, bool isKeepPosition = false)
+        public void AttachWeapon(WeaponActorComponent weapon, bool isKeepPosition = false)
         {
             if (weapon == null) return;
 
@@ -46,11 +46,11 @@ namespace UnityEngine.SceneManagement
             weapon.transform.localRotation = weapon.WeaponDataSet.equipedOffsetRotation;
         }
 
-        public Weapon DetachWeapon()
+        public WeaponActorComponent DetachWeapon()
         {
             if (!IsEquippedWeapon) return null;
 
-            Weapon weapon = equippedWeapon;
+            WeaponActorComponent weapon = equippedWeapon;
             equippedWeapon = null;
             weapon.transform.SetParent(null); 
             return weapon;
@@ -60,7 +60,7 @@ namespace UnityEngine.SceneManagement
         {
             if (!IsEquippedWeapon || _idleHand == null) return;
 
-            Weapon weapon = DetachWeapon();
+            WeaponActorComponent weapon = DetachWeapon();
             weapon.gameObject.SetActive(false);
             _idleHand.AttachWeapon(weapon , true);
         }
@@ -69,7 +69,7 @@ namespace UnityEngine.SceneManagement
         {
             if (_idleHand == null || !_idleHand.IsEquippedWeapon) return;
 
-            Weapon weapon = _idleHand.DetachWeapon();
+            WeaponActorComponent weapon = _idleHand.DetachWeapon();
             weapon.gameObject.SetActive(true);
             AttachWeapon(weapon);
         }

@@ -18,8 +18,20 @@ namespace Script.GameData
         public float AttackRange = 2f;
         public float Health = 50f;
         
+        [Header("Animation")]
         [FoldoutGroup("Animation Override")]
         public List<OverrideClip> OverrideClips = new List<OverrideClip>();
+        
+        [Header("Spell")]
+        public bool HasSpell;
+        [FoldoutGroup("Spell")]
+        [ ShowIf("HasSpell")]
+        public float CountDownTime = 10f;
+        [FoldoutGroup("Spell")]
+        [ValueDropdown("SpellIdsGetter"), ShowIf("HasSpell")]
+        public List<string> SpellIds = new List<string>();
+        
+        private IEnumerable SpellIdsGetter => IDGetter.GetSpellDataSets();
         
     }
     
