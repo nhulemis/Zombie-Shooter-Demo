@@ -15,9 +15,22 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: e688c0662101f487d87e789eb11d4d2b
   m_SerializeEntries:
+  - m_GUID: 90375796f996bff4cabed66da5e558cb
+    m_Address: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Misc/CFXR2 Cartoon
+      Fight (Loop).prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99bc28c0d45f51c4fbac01080b73edc7
     m_Address: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Explosions/CFXR3
       Fire Explosion B.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b614c0b085f0d4e8e87d467d1fa99faa
+    m_Address: Assets/1_Game/Resources_moved/Prefabs/Weapons/GrenadeStun.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

@@ -54,10 +54,9 @@ namespace _1_Game.Scripts.Systems.InputSystem
 
         private void ScanEnemies()
         {
-            Log.Debug("ScanEnemies");
             _targets.Clear();
             Collider[] results = new Collider[15];
-            var size = Physics.OverlapSphereNonAlloc(_playerActor.transform.position, 10, results, AimLayerMask);
+            var size = Physics.OverlapSphereNonAlloc(_playerActor.transform.position, 6, results, AimLayerMask);
             foreach (var collider in results)
             {
                 if(collider == null) continue;

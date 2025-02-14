@@ -61,6 +61,7 @@ namespace UnityEngine.SceneManagement
             if (!IsEquippedWeapon || _idleHand == null) return;
 
             Weapon weapon = DetachWeapon();
+            weapon.gameObject.SetActive(false);
             _idleHand.AttachWeapon(weapon , true);
         }
 
@@ -69,6 +70,7 @@ namespace UnityEngine.SceneManagement
             if (_idleHand == null || !_idleHand.IsEquippedWeapon) return;
 
             Weapon weapon = _idleHand.DetachWeapon();
+            weapon.gameObject.SetActive(true);
             AttachWeapon(weapon);
         }
     }

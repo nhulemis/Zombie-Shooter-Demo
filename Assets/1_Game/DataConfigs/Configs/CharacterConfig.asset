@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   id: BaseZombieConfig
   Mass: 2
-  MoveSpeed: 2
+  MoveSpeed: 1.2
   JumpForce: 2
   RotationSpeed: 10
   AimOffsetAngle: 10

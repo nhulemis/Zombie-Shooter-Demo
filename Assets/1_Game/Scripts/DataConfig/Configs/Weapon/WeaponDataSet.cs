@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _1_Game.Scripts.Systems.WeaponSystem.DamageEffect;
 using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -33,6 +34,10 @@ namespace Script.GameData.Weapon
         [Header("Combo Attack")]
         public bool hasAttack;
         [ShowIf("hasAttack")] public ComboAttackData[] comboAttackData;
+        
+        [Header("Damage Effect")]
+        public bool hasDamageEffect;
+        [ShowIf("hasDamageEffect"),SerializeReference] public IDameEffectAction damageEffect;
         
         private IEnumerable OverrideCharacterDataConfig => IDGetter.GetCharacterConfigs();
 

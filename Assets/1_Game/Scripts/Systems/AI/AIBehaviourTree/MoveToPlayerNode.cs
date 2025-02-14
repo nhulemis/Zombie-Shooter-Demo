@@ -1,5 +1,7 @@
+using System;
 using _1_Game.Systems.Character;
 using Script.GameData;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,6 +29,13 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
             _player = moveParams.Player;
             _stoppingDistance = moveParams.CharacterDataConfig.AttackRange;
             _agent.speed = moveParams.CharacterDataConfig.MoveSpeed;
+            moveParams.Character.RxIsStunned.Subscribe(isStunned =>
+            {
+                if (isStunned)
+                {
+                    _agent.ResetPath();
+                }
+            }).AddTo(_agent);
         }
 
         public override NodeState Evaluate()

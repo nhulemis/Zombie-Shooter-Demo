@@ -96,6 +96,7 @@ namespace _1_Game.Systems.Character
 
         void Update()
         {
+            if(IsStunned) return;
             rootNode.Evaluate();
         }
     }

@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using _1_Game.Scripts.DataConfig;
+using _1_Game.Scripts.Systems.AddressableSystem;
 using _1_Game.Scripts.Systems.WeaponSystem;
+using _1_Game.Scripts.Systems.WeaponSystem.DamageEffect;
 using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
 using Script.GameData;
 using Script.GameData.Weapon;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
 namespace _1_Game.Systems.Character
@@ -30,6 +33,12 @@ namespace _1_Game.Systems.Character
         protected float VerticalVelocity;
         protected bool isAiming;
         protected float health;
+        public ReactiveProperty<bool> RxIsStunned { get; } = new();
+        public bool IsStunned
+        {
+            get => RxIsStunned.Value;
+            set => RxIsStunned.Value = value;
+        }        
 
         private void Awake()
         {
@@ -129,5 +138,21 @@ namespace _1_Game.Systems.Character
             _animationController.EquipWeapon(weapon);
         }
 
+        public async void ApplyDamageEffect(IDameEffectAction damageEffect)
+        {
+            damageEffect.ApplyEffect(this);
+            var fxPrefab = await AssetLoader.Load<GameObject>(damageEffect.EffectPrefab);
+            var fx = Instantiate(fxPrefab, transform.position, Quaternion.identity);
+            Destroy(fx, damageEffect.EffectDuration);
+            
+        }
+        
+        public async void TakeStun(float duration)
+        {
+            Log.Debug($"[Character] {name} is stunned for {duration} seconds");
+            IsStunned = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(duration));
+            IsStunned = false;
+        }
     }
 }

@@ -30,3 +30,10 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 1
+  - type: _1_Game.Scripts.Systems.WeaponSystem.StunGrenadeActor
+    addressable:
+      m_AssetGUID: b614c0b085f0d4e8e87d467d1fa99faa
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 1

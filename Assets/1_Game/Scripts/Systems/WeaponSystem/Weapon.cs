@@ -33,7 +33,6 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         
         public virtual void Attack( Vector3 targetDirection)
         {
-            Log.Debug("[Base] Weapon attack");
             if (!_isReadyToAttack)
             {
                 if (Time.time - _lastAttackTime > WeaponDataSet.attackRate)

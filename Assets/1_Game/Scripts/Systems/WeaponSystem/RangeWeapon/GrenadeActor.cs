@@ -10,7 +10,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         public void Attack(Transform actor, Vector3 targetDir, WeaponDataSet weaponDataSet)
         {
             float attackRange = weaponDataSet.range;
-            float throwDuration = weaponDataSet.attackRate;
+            float throwDuration = 0.25f;
             Vector3 startPos = actor.position;
             
             Vector3 endPos = startPos + targetDir * attackRange;
@@ -20,7 +20,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             
             var rb = actor.GetComponent<Rigidbody>();
             
-            
+            Log.Debug("Grenade attack");
             actor.DOMove(peakPos, throwDuration)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
@@ -29,18 +29,10 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
                     rb.useGravity = true;
                     rb.AddForce(targetDir * attackRange * 1.5f + Vector3.down * attackRange/2, ForceMode.Impulse);
                 });
-            
-            // actor.DOPath(new Vector3[] { peakPos, endPos }, throwDuration, PathType.CatmullRom)
-            //     .SetEase(Ease.Linear) 
-            //     .OnComplete(() =>
-            //     {
-            //         Explode();
-            //     });
         }
         
         private void Explode()
         {
-            Log.Debug("Grenade exploded");
         }
     }
 }

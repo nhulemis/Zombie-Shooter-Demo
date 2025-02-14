@@ -28,6 +28,7 @@ namespace _1_Game.Systems.Character
 
         private void FixedUpdate()
         {
+            if(IsStunned) return;
             if (!_isPlayer) return;
             Movement();
             Attack();

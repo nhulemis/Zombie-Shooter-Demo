@@ -66,7 +66,7 @@ namespace Game.UI
 
         public void OnUseGrenadeClick()
         {
-            new PreGrenadeCommand().Execute().Forget();
+            new PreStunGrenadeCommand().Execute().Forget();
         }
     }
 }
