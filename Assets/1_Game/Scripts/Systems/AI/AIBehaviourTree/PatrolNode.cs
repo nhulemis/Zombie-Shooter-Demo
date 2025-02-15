@@ -22,6 +22,10 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         public override NodeState Evaluate()
         {
+            if (_patrolPoints.Count == 0)
+            {
+                return NodeState.Failure;
+            }
             if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
             {
                 _currentPatrolIndex = (_currentPatrolIndex + 1) % _patrolPoints.Count;

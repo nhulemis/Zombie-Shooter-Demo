@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Script.GameData
 {
@@ -24,9 +25,10 @@ namespace Script.GameData
         
         [Header("Spell")]
         public bool HasSpell;
+        [FormerlySerializedAs("CountDownTime")]
         [FoldoutGroup("Spell")]
         [ ShowIf("HasSpell")]
-        public float CountDownTime = 10f;
+        public float CountDownSpellTime = 10f;
         [FoldoutGroup("Spell")]
         [ValueDropdown("SpellIdsGetter"), ShowIf("HasSpell")]
         public List<string> SpellIds = new List<string>();

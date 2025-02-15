@@ -39,6 +39,11 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             }
         }
 
+        public override void AttackTo(Vector3 target)
+        {
+            Attack(target);
+        }
+
         public override void Free()
         {
             

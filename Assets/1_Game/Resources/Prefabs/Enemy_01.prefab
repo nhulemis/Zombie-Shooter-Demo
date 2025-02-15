@@ -99,7 +99,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -141,7 +141,6 @@ MonoBehaviour:
   _rightHandAttachComponent: {fileID: 5377655864261451546}
   _weapons:
   - {fileID: 1055222608851134679, guid: 7a2a319f0fb9a49aaad293bd2e699966, type: 3}
-  - {fileID: 4674069278389591950, guid: b614c0b085f0d4e8e87d467d1fa99faa, type: 3}
 --- !u!114 &7488361923285067418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +156,7 @@ MonoBehaviour:
   _animationController: {fileID: 7482494978117084636}
   _controller: {fileID: 6667870141626531723}
   _weaponController: {fileID: 8073120482455059619}
-  _characterConfigID: ZombieBoss
+  _characterConfigID: BaseZombieConfig
   CharacterDataConfig: {fileID: 0}
   detectionRange: 10
   pointsPatrol: 3

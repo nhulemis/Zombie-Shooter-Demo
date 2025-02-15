@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using _1_Game.Scripts.DataConfig;
 using _1_Game.Scripts.Systems.AIBehaviourTree;
+using _1_Game.Scripts.Util;
+using Script.GameData;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +19,23 @@ namespace _1_Game.Systems.Character
         [SerializeField] private float detectionRange = 10f;
         [SerializeField] private int pointsPatrol = 3;
         [SerializeField] private float radius = 5f;
+        [SerializeField] private float intervalUpdate = 1f;
+
+        private bool isCastSpell = false;
+        private float lastTimeCast = 0f;
+        private float lastTimeUpdate = 0f;
+
+        private List<SpellCastData> spellCastDatas = new List<SpellCastData>();
+
+        private struct SpellCastData
+        {
+            public string SpellId;
+            public bool IsReady;
+            public float LastTimeCast;
+        }
+
+        private GameDataBase GameDataBase => Locator<GameDataBase>.Get();
+        private SpellConfig SpellConfig => GameDataBase.Get<SpellConfig>();
 
         void Start()
         {
@@ -54,6 +74,78 @@ namespace _1_Game.Systems.Character
                 new SequenceNode(new List<Node> { checkPlayerInRange, moveToPlayer }), // Chase player
                 patrol
             });
+
+            InitSpellCastData();
+        }
+
+        private void InitSpellCastData()
+        {
+            foreach (var spellId in CharacterDataConfig.SpellIds)
+            {
+                spellCastDatas.Add(new SpellCastData
+                {
+                    SpellId = spellId,
+                    IsReady = true,
+                    LastTimeCast = 0f
+                });
+            }
+        }
+
+        private new string PickSpell()
+        {
+            //get first spell that is ready
+            foreach (var spellData in spellCastDatas)
+            {
+                if (spellData.IsReady)
+                {
+                    return spellData.SpellId;
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private void UseSpell(string spellId)
+        {
+            if (string.IsNullOrEmpty(spellId)) return;
+            var spell = SpellConfig.GetSpellDataSet(spellId);
+            CastSpell(spell, player);
+            UpdateSpellData(spellId);
+        }
+        
+        private void UpdateSpellData()
+        {
+            for (int i = 0; i < spellCastDatas.Count; i++)
+            {
+                if(spellCastDatas[i].IsReady) continue;
+                if (Time.time - spellCastDatas[i].LastTimeCast > SpellConfig.GetSpellDataSet(spellCastDatas[i].SpellId).cooldown)
+                {
+                    spellCastDatas[i] = new SpellCastData
+                    {
+                        SpellId = spellCastDatas[i].SpellId,
+                        IsReady = true,
+                        LastTimeCast = 0f
+                    };
+                    Log.Debug($"<color=green>Spell {spellCastDatas[i].SpellId} is ready</color>");
+                }
+            }
+        }
+
+        private void UpdateSpellData(string spellId)
+        {
+            for (int i = 0; i < spellCastDatas.Count; i++)
+            {
+                if (spellCastDatas[i].SpellId == spellId)
+                {
+                    spellCastDatas[i] = new SpellCastData
+                    {
+                        SpellId = spellId,
+                        IsReady = false,
+                        LastTimeCast = Time.time
+                    };
+                    break;
+                }
+            }
         }
 
         private List<Vector3> PatrolPoints()
@@ -75,6 +167,8 @@ namespace _1_Game.Systems.Character
 
         public override void Attack()
         {
+            if (CheckAndCastSpell()) return;
+
             if (Weapon != null)
             {
                 Attack(player.position);
@@ -100,6 +194,31 @@ namespace _1_Game.Systems.Character
         {
             if (IsStunned) return;
             rootNode.Evaluate();
+            
+            if (Time.time - lastTimeUpdate > intervalUpdate)
+            {
+                lastTimeUpdate = Time.time;
+                UpdateSpellData();
+            }
+        }
+
+        private bool CheckAndCastSpell()
+        {
+            if (Time.time - lastTimeCast > CharacterDataConfig.CountDownSpellTime)
+            {
+                isCastSpell = true;
+                lastTimeCast = Time.time;
+            }
+
+            string spellId = PickSpell();
+            if (isCastSpell && !string.IsNullOrEmpty(spellId))
+            {
+                isCastSpell = false;
+                UseSpell(spellId);
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -48,6 +48,7 @@ namespace _1_Game.Systems.Character
             _weaponController.Init(this);
             _animationController.Init(CharacterDataConfig);
             health = CharacterDataConfig.Health;
+            
         }
 
         public virtual void Attack()

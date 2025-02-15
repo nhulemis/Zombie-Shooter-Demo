@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _1_Game.Systems.Character;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,13 +10,13 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
     public class WeaponController : MonoBehaviour
     {
         [FormerlySerializedAs("_attachComponent")] [SerializeField] private AttachComponent _rightHandAttachComponent;
-        [SerializeField] private WeaponActorComponent[] _weapons;
+        [SerializeField] private List<WeaponActorComponent> _weapons;
         public bool IsEquippedWeapon => _rightHandAttachComponent.IsEquippedWeapon;
         
         public WeaponActorComponent EquippedWeapon => _rightHandAttachComponent.EquippedWeapon;
         private CharacterActor _actor;
         
-        public WeaponActorComponent[] Weapons => _weapons;
+        public List<WeaponActorComponent> Weapons => _weapons;
         
         public void Init(CharacterActor character)
         {
@@ -24,7 +25,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             if(EquippedWeapon != null)
                 EquippedWeapon.Init(_actor);
             
-            if(_weapons.Length > 0)
+            if(_weapons.Count > 0)
                 _actor.PickupWeapon(_weapons[0]);
         }
 

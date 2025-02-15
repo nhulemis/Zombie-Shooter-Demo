@@ -12,7 +12,6 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
         private float _lastAttackTime = 0f;
         private CharacterActor _actor;
 
-        private List<Node> _children;
         private float lastTimeCastSpell = 0f;
 
         GameDataBase GameDataBase => Locator<GameDataBase>.Get();
@@ -21,12 +20,6 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
         public AttackNode(CharacterActor actor, Transform target)
         {
             _actor = actor;
-            _children = new List<Node>();
-            if (!_actor.CharacterDataConfig.HasSpell) return;
-            foreach (var spellId in _actor.CharacterDataConfig.SpellIds)
-            {
-                _children.Add(new CastSpellNode(spellId, _actor, target));
-            }
         }
 
         public override NodeState Evaluate()
@@ -34,44 +27,15 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
             if (Time.time >= _lastAttackTime + GetAttackRate())
             {
                 _lastAttackTime = Time.time;
-                return EvaluateAttack();
-            }
-
-            return NodeState.Running;
-        }
-
-        private NodeState EvaluateAttack()
-        {
-            if (_children.Count == 0 || !CanAttackSpell())
-            {
                 _actor.Attack();
                 return NodeState.Success;
             }
-            
-            lastTimeCastSpell = Time.time;
-            bool isAnySpellRunning = false;
-            foreach (var child in _children)
-            {
-                var result = child.Evaluate();
-                if (result == NodeState.Running)
-                {
-                    isAnySpellRunning = true;
-                    break;
-                }
-            }
-
-            if (isAnySpellRunning)
-            {
-                return NodeState.Running;
-            }
-
-            _actor.Attack();
-            return NodeState.Success;
+            return NodeState.Running;
         }
-        
+
         private bool CanAttackSpell()
         {
-            return Time.time >= lastTimeCastSpell + _actor.CharacterDataConfig.CountDownTime;
+            return Time.time >= lastTimeCastSpell + _actor.CharacterDataConfig.CountDownSpellTime;
         }
 
         private float GetAttackRate()

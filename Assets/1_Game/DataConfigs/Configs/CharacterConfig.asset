@@ -135,7 +135,7 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 18
   AttackRange: 2
-  Health: 150
+  Health: 500000
   OverrideClips: []
   HasSpell: 0
   CountDownTime: 10
