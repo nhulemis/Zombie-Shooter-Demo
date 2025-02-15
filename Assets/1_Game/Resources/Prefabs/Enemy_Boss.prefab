@@ -990,7 +990,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -1054,6 +1054,7 @@ MonoBehaviour:
   detectionRange: 10
   pointsPatrol: 3
   radius: 5
+  intervalUpdate: 1
 --- !u!195 &7470254994022185537
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using _1_Game.Scripts.Util;
 using Cysharp.Threading.Tasks;
 using Script.GameData;
 using Script.GameData.Weapon;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _1_Game.Systems.Character
@@ -49,7 +50,6 @@ namespace _1_Game.Systems.Character
                 return;
             }
 
-            // 🔹 Get the current animation overrides (stored as a list of KeyValuePairs)
             List<KeyValuePair<AnimationClip, AnimationClip>> overrides =
                 new List<KeyValuePair<AnimationClip, AnimationClip>>();
             _overrideController.GetOverrides(overrides);
@@ -84,6 +84,7 @@ namespace _1_Game.Systems.Character
 
         private void ResetWeightLayer()
         {
+            if(this.IsUnityNull()) return;
             if (_animator.layerCount <= 1) return;
             for (int i = 1; i < _animator.layerCount; i++)
             {
@@ -143,6 +144,7 @@ namespace _1_Game.Systems.Character
 
         public async UniTask<float> AttackByAnimation(ComboAttackData attackData, WeaponActorComponent weapon)
         {
+            if(this.IsUnityNull()) return 0f;
             if (attackData == null)
             {
                 _animator.SetInteger(_comboHash, 0);
@@ -161,6 +163,7 @@ namespace _1_Game.Systems.Character
 
         public async void ApplyOverrideConfig(CharacterDataConfig characterDataConfig)
         {
+            if(this.IsUnityNull()) return ;
             _characterDataConfig = characterDataConfig;
             if (characterDataConfig.OverrideClips.Count == 0) return;
             foreach (var clip in characterDataConfig.OverrideClips)

@@ -50,12 +50,12 @@ MonoBehaviour:
       type: {class: StunDamageEffectAction, ns: _1_Game.Scripts.Systems.WeaponSystem.DamageEffect, asm: Assembly-CSharp}
       data:
         _effectPrefab:
-          m_AssetGUID: 26e1cb216e3635e4a820f58a1118d6b9
+          m_AssetGUID: 90375796f996bff4cabed66da5e558cb
           m_SubObjectName: 
           m_SubObjectGUID: 
           m_SubObjectType: 
           m_EditorAssetChanged: 1
-        _effectDuration: 2
+        _effectDuration: 3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

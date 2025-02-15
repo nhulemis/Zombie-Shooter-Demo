@@ -1,6 +1,7 @@
 using System;
 using _1_Game.Scripts.Systems.AddressableSystem;
 using _1_Game.Systems.Character;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,6 +16,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         
         private async void HandleAttack(Vector3 target, bool isDirectional)
         {
+            if(this.IsUnityNull()) return;
             if (!_isReadyToAttack) return;
             _isReadyToAttack = false;
             _lastAttackTime = Time.time;
@@ -34,6 +36,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             else
             {
                 var projectilePrefab = await AssetLoader.Load<GameObject>(WeaponDataSet.projectilePrefab);
+                if(projectilePrefab == null) return;
                 var projectile = Instantiate(projectilePrefab, _firePoint.position, Quaternion.identity);
                 projectile.transform.forward = _firePoint.forward;
                 

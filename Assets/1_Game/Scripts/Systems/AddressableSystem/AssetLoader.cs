@@ -11,8 +11,6 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
 {
     public class AssetLoader
     {
-        private Dictionary<int, object> loadedAssets = new (); // Cache for assets
-
         private Dictionary<int, AsyncOperationHandle>
             handleCache = new (); 
         
@@ -21,27 +19,39 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             return Locator<AssetLoader>.Get().LoadAsset<T>(key);
         }
         
-        public async UniTask<T> LoadAsset<T>(AssetReference key) where T : UnityEngine.Object
+        public async UniTask<T> LoadAsset<T>(AssetReference assetReference) where T : UnityEngine.Object
         {
-            int keyHash = key.RuntimeKey.GetHashCode();
-            if (loadedAssets.TryGetValue(keyHash, out var cachedAsset))
+            int keyHash = assetReference.RuntimeKey.GetHashCode();
+            if (!assetReference.RuntimeKeyIsValid())
             {
-                return (T)cachedAsset;
+                Debug.LogError("Invalid AssetReference!");
+                return null;
             }
-            var handle = key.LoadAssetAsync<T>();
+
+            string key = assetReference.RuntimeKey.ToString();
+
+            if (handleCache.TryGetValue(keyHash, out AsyncOperationHandle existingHandle))
+            {
+                if (existingHandle.IsValid() && existingHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    Debug.Log($"Using cached asset: {key}");
+                    return (T)existingHandle.Result;
+                }
+            }
+            
+            AsyncOperationHandle<T> handle = assetReference.LoadAssetAsync<T>();
             handleCache[keyHash] = handle;
+
             await handle.ToUniTask(); 
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                loadedAssets[keyHash] = handle.Result;
-                handleCache[keyHash] = handle;
+                Debug.Log($"Asset loaded successfully: {key}");
                 return handle.Result;
             }
             else
             {
                 Debug.LogError($"Failed to load asset: {key}");
-                handleCache.Remove(keyHash);
                 return null;
             }
         }
@@ -52,7 +62,6 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             if (handleCache.TryGetValue(keyHash, out var handle))
             {
                 Addressables.Release(handle);
-                loadedAssets.Remove(keyHash);
                 handleCache.Remove(keyHash);
                 Debug.Log($"Released asset: {key}");
             }
@@ -64,8 +73,6 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             {
                 Addressables.Release(handle);
             }
-
-            loadedAssets.Clear();
             handleCache.Clear();
             Debug.Log("Released all Addressable assets.");
         }
