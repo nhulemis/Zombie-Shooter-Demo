@@ -18,6 +18,8 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             _weaponDataSet = weaponDataSet;
             _owner = owner;
             transform.SetParent(null);
+            
+            Destroy(gameObject, 5f);
         }
 
         private void OnCollisionEnter(Collision other)

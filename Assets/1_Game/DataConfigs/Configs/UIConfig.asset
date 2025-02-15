@@ -47,3 +47,11 @@ MonoBehaviour:
     viewGroup: GameView
     builder: 0
     prefabPath: UI/DesktopInputView/DesktopInputView
+  - id: ClearStagePopup
+    viewGroup: GameView
+    builder: 0
+    prefabPath: UI/ClearStagePopup/ClearStagePopup
+  - id: MissionFailPopup
+    viewGroup: GameView
+    builder: 1
+    prefabPath: UI/MissionFailPopup/MissionFailPopup

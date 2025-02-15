@@ -7095,6 +7095,9 @@ MonoBehaviour:
   - Amount: 1
     SpawnActor:
       rid: 8364553741857980514
+  - Amount: 2
+    SpawnActor:
+      rid: 8364553741857980649
   - Amount: 12
     SpawnActor:
       rid: 8364553741857980515
@@ -7113,7 +7116,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _initAmount: 6
+  _initAmount: 8
   references:
     version: 2
     RefIds:
@@ -7133,6 +7136,10 @@ MonoBehaviour:
       type: {class: SpawnEnemyActor, ns: _1_Game.Scripts.GamePlay.RoomSpawner, asm: Assembly-CSharp}
       data:
         <Prefab>k__BackingField: {fileID: 2395493335717428230, guid: 1903ddae03ad244ba9da904f215c8155, type: 3}
+    - rid: 8364553741857980649
+      type: {class: SpawnEnemyActor, ns: _1_Game.Scripts.GamePlay.RoomSpawner, asm: Assembly-CSharp}
+      data:
+        <Prefab>k__BackingField: {fileID: 7011919852307599655, guid: 3bb30ec596d8541fbb0023e3f8345332, type: 3}
 --- !u!1 &2797526433179618095
 GameObject:
   m_ObjectHideFlags: 0

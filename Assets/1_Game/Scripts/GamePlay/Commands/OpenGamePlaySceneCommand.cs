@@ -24,14 +24,17 @@ namespace _1_Game.Scripts.GamePlay.Commands
 
                     if (operation.progress >= 0.9f) // Scene is ready
                     {
-                        new PrepareGameplaySystemCommand().Execute().Forget();
                         Locator<UISystem>.Instance.ExternalCloseUI<LoadingScene>();
                         operation.allowSceneActivation = true;
+                        await new PrepareGameplaySystemCommand().Execute();
                     }
 
                     await UniTask.Yield();
                 }
             }
+
+            await new PrepareOutGameplayCommand().Execute();
+            await UniTask.CompletedTask;
         }
     }
 }

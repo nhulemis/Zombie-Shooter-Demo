@@ -99,5 +99,16 @@ namespace Game.Systems.UI
                 uiBase.CloseUI();
             }
         }
+
+        public UIView GetView(string uiGroupName)
+        {
+            if (_views.TryGetValue(uiGroupName, out var view))
+            {
+                return view;
+            }
+
+            Debug.LogError($"View {uiGroupName} not found in UISystem.");
+            return null;
+        }
     }
 }

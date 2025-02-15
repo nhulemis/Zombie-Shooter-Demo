@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using _1_Game.Scripts.Systems.AddressableSystem;
 using _1_Game.Systems.Character;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -81,12 +84,14 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             EquippedWeapon?.AttackTo(target);
         }
 
-        public void PutIntoInventory(WeaponActorComponent weapon)
+        public async void PutIntoInventory(WeaponActorComponent weapon)
         {
+            if(this.IsUnityNull()) return;
             if(Weapons.Exists(x=>x.Id.Equals(weapon.Id) )) return;
-            var weaponInstance = Instantiate(weapon);
+            var weaponInstance = await AssetLoader.Instantiate(weapon,Vector3.zero, quaternion.identity);
             weaponInstance.gameObject.SetActive(false);
-            Weapons.Add(weaponInstance);
+            var attachComponent = weaponInstance.GetComponent<WeaponActorComponent>();
+            Weapons.Add(attachComponent);
         }
 
         public WeaponActorComponent GetNextWeapon()

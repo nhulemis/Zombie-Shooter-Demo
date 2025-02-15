@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _1_Game.Scripts.DataConfig;
+using _1_Game.Scripts.GamePlay;
 using _1_Game.Scripts.Systems.AddressableSystem;
 using _1_Game.Scripts.Systems.WeaponSystem;
 using _1_Game.Scripts.Systems.WeaponSystem.DamageEffect;
@@ -9,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using Script.GameData;
 using Sirenix.OdinInspector;
 using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -138,6 +140,7 @@ namespace _1_Game.Systems.Character
             _controller.enabled = false;
             await _animationController.Execute_DeathAnimation();
             this.enabled = false;
+            Locator<MapProvider>.Get().CheckPlayerHasCompleted();
             Destroy(gameObject);
         }
 
@@ -159,8 +162,8 @@ namespace _1_Game.Systems.Character
         public async void ApplyDamageEffect(IDameEffectAction damageEffect)
         {
             damageEffect.ApplyEffect(this);
-            var fxPrefab = await AssetLoader.Load<GameObject>(damageEffect.EffectPrefab);
-            var fx = Instantiate(fxPrefab, transform.position, Quaternion.identity);
+            var fx = await AssetLoader.Instantiate(damageEffect.EffectPrefab);
+            if(fx == null) return;
             Destroy(fx, damageEffect.EffectDuration);
             
         }
@@ -188,8 +191,8 @@ namespace _1_Game.Systems.Character
             Log.Debug($"[Character] CastSpell {spell.id}");
             bool result = await spell.beforeCastSpellActorCommand.Make(this).Execute();
             if(result == false) return;
-            var prefab = await AssetLoader.Load<GameObject>(spell.spellRefKey);
-            var spellInstance = Instantiate(prefab, transform.position, Quaternion.identity);
+            var spellInstance = await AssetLoader.Instantiate(spell.spellRefKey);
+            spellInstance.transform.position = transform.position;
             var castSpellComponent = spellInstance.GetComponent<CastSpellPositionActorComponent>();
             castSpellComponent.Init(spell, target, () =>
             {
@@ -198,6 +201,7 @@ namespace _1_Game.Systems.Character
             castSpellComponent.CastSpell();
             await UniTask.WaitUntil(castSpellComponent.IsSpellFinished);
             await UniTask.Delay(TimeSpan.FromSeconds(1));
+            if(this.IsUnityNull()) return;
             RetrieveWeaponFromIdleHand();
         }
     }

@@ -109,7 +109,7 @@ MonoBehaviour:
   id: PoisonGun
   damage: 15
   attackRate: 1
-  range: 20
+  range: 8
   isAoEAttack: 0
   aoeRadius: 2
   attackTime: 0.5
@@ -156,7 +156,7 @@ MonoBehaviour:
     SerializationNodes: []
   id: Rifle
   damage: 11
-  attackRate: 0.1
+  attackRate: 0.2
   range: 20
   isAoEAttack: 0
   aoeRadius: 2

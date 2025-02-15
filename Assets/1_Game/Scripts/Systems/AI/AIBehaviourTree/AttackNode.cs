@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using _1_Game.Scripts.DataConfig;
+using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
 using _1_Game.Systems.Character;
 using Script.GameData;
+using UniRx;
 using UnityEngine;
 
 namespace _1_Game.Scripts.Systems.AIBehaviourTree
@@ -16,10 +18,23 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         GameDataBase GameDataBase => Locator<GameDataBase>.Get();
         SpellConfig SpellConfig => GameDataBase.Get<SpellConfig>();
+        
+        private float _mutiplier = 1f;
 
         public AttackNode(CharacterActor actor, Transform target)
         {
             _actor = actor;
+            Locator<DoorObserver>.Get().RxIsDoorOpen.Subscribe(b =>
+            {
+                if (b)
+                {
+                    _mutiplier /= 2;
+                }
+            }).AddTo(_actor);
+            if(Locator<DoorObserver>.Get().RxIsDoorOpen.Value)
+            {
+                _mutiplier /= 2;
+            }
         }
 
         public override NodeState Evaluate()
@@ -40,7 +55,7 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         private float GetAttackRate()
         {
-            return _actor.Weapon.GetAttackRate();
+            return _actor.Weapon.GetAttackRate() * _mutiplier;
         }
     }
 }

@@ -26,6 +26,11 @@ namespace _1_Game.Systems.Character
             _autoAimingActorComponent.Init(this);
         }
 
+        private void OnDestroy()
+        {
+            Destroy(_aimTarget.gameObject);
+        }
+
         private void FixedUpdate()
         {
             if(IsStunned) return;

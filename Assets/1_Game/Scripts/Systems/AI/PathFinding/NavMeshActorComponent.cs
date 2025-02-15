@@ -25,7 +25,7 @@ namespace _1_Game.Scripts.Systems.AI.PathFinding
 
         private void OnDestroy()
         {
-            Locator<NavMeshProvider>.Get().UnregisterNavMeshSurface(BuildNavMesh);
+            //Locator<NavMeshProvider>.Get().UnregisterNavMeshSurface(BuildNavMesh);
         }
 
         private void BuildNavMesh()

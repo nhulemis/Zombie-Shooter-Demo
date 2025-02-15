@@ -1,4 +1,6 @@
 using System;
+using _1_Game.Scripts.Systems.Observe;
+using _1_Game.Scripts.Util;
 using _1_Game.Systems.Character;
 using Script.GameData;
 using UniRx;
@@ -29,17 +31,36 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
             _player = moveParams.Player;
             _stoppingDistance = moveParams.CharacterDataConfig.AttackRange;
             _agent.speed = moveParams.CharacterDataConfig.MoveSpeed;
-            moveParams.Character.RxIsStunned.Subscribe(isStunned =>
+
+            if(Locator<DoorObserver>.Get().RxIsDoorOpen.Value)
+            {
+                _agent.speed *= 1.5f;
+            }
+            
+            RegisterListener();
+        }
+
+        private void RegisterListener()
+        {
+            _moveParams.Character.RxIsStunned.Subscribe(isStunned =>
             {
                 if (isStunned)
                 {
                     _agent.ResetPath();
                 }
             }).AddTo(_agent);
+            Locator<DoorObserver>.Get().RxIsDoorOpen.Subscribe(b =>
+            {
+                if (b)
+                {
+                    _agent.speed *= 2;
+                }
+            }).AddTo(_agent);
         }
 
         public override NodeState Evaluate()
         {
+            
             float distance = Vector3.Distance(_agent.transform.position, _player.position);
             if (distance <= _stoppingDistance)
             {

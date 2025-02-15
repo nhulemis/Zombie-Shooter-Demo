@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -49,6 +51,19 @@ namespace _1_Game.Scripts.GamePlay.RoomSpawner
             {
                 Spawn();
             }
+            Locator<DoorObserver>.Get().OnUserOpenDoor.Subscribe(_ =>
+            {
+                foreach (var config in _spawnConfigs)
+                {
+                    while (config.Amount > 0)
+                    {
+                        if (pointIndex >= _spawnPoints.Count) pointIndex = 0;
+                        config.SpawnActor.Spawn(_spawnPoints[pointIndex]);
+                        config.Amount--;
+                        pointIndex++;
+                    }
+                }
+            }).AddTo(this);
         }
 
         private void Spawn()
@@ -57,7 +72,7 @@ namespace _1_Game.Scripts.GamePlay.RoomSpawner
             {
                 if (spawnConfig.Amount <= 0) continue;
                 if (pointIndex >= _spawnPoints.Count) pointIndex = 0;
-                spawnConfig.SpawnActor.Spawn(_spawnPoints[pointIndex].position);
+                spawnConfig.SpawnActor.Spawn(_spawnPoints[pointIndex]);
                 spawnConfig.Amount--;
                 pointIndex++;
                 return;

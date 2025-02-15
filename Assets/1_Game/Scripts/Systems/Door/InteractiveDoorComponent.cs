@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using _1_Game.Scripts.GamePlay;
 using _1_Game.Scripts.Systems.Interactive;
+using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
+using Game.Systems.UI;
 using Sirenix.OdinInspector;
 using TMPro;
 using UniRx;
@@ -17,16 +20,37 @@ namespace _1_Game.Scripts.Systems.Door
         private Canvas _canvas;
         [SerializeField , ValueDropdown("tmpTexts")] private TMP_Text _txtKeys;
         [SerializeField] private int requiredKeys = 1;
-        private IEnumerable tmpTexts => transform.GetComponentsInChildren<TMP_Text>();
+        [SerializeField] private float _unlockTime = 5f;
         
+        [SerializeField, ValueDropdown("ViewGroups"), FoldoutGroup("Interactive")] private string _uiGroupName;
+        [SerializeField, FoldoutGroup("Interactive")] private UIBuilder _builderName;
+        [SerializeField, FoldoutGroup("Interactive")] private OpenDoorActorComponent _doorActor;
+#if UNITY_EDITOR
+        public IEnumerable ViewGroups => IDGetter.GetUIGroupName();        
+#endif
+        
+        private IEnumerable tmpTexts => transform.GetComponentsInChildren<TMP_Text>();
+        private bool _isUnlocking;
+        private float _unlockTimer;
 
         private InventorySystem inventorySystem => Locator<InventorySystem>.Get();
+        
+        private Transform _interactiveView;
 
         private void Start()
         {
             _canvas.gameObject.SetActive(false);
+            _interactiveView = _doorActor.transform;
             OnPropertyChanged(typeof(KeyItem), 0);
             RegisterListeners();
+            var view = Locator<UISystem>.Get().GetView(_uiGroupName);
+            var builder = view.GetBuilder(_builderName);
+            _interactiveView.SetParent(builder);
+            _interactiveView.gameObject.SetActive(false);
+            if (_interactable)
+            {
+                Locator<MapProvider>.Get().AddDoor(this);
+            }
         }
 
         private void RegisterListeners()
@@ -62,20 +86,25 @@ namespace _1_Game.Scripts.Systems.Door
 
         public override void React()
         {
-            if(!_interactable) return;
+            if(!_interactable || IsOpen) return;
             
             _canvas.gameObject.SetActive(true);
+            _interactiveView.gameObject.SetActive(true);
         }
         
         public override void ReactEnd()
         {
             _canvas.gameObject.SetActive(false);
+            _interactiveView.gameObject.SetActive(false);
+            _isUnlocking = false;
         }
         
         public override void Execute()
         {
            base.Execute();
            _canvas.gameObject.SetActive(false);
+           _interactiveView.gameObject.SetActive(false);
+           _unlockTimer = 0;
         }
 
         private void LateUpdate()
@@ -87,6 +116,39 @@ namespace _1_Game.Scripts.Systems.Door
 
                 // Make canvas look in the opposite direction
                 _canvas.transform.LookAt(_canvas.transform.position + directionAway);
+            }
+            
+            if (_isUnlocking)
+            {
+                _unlockTimer += Time.deltaTime;
+                _doorActor.OnOpenDoor(_unlockTimer / _unlockTime);
+                if (_unlockTimer >= _unlockTime)
+                {
+                    _isUnlocking = false;
+                    OpenDoor();
+                    inventorySystem.Use<KeyItem>(requiredKeys);
+                    IsOpen = true;
+                    Locator<MapProvider>.Get().CheckPlayerHasCompleted();
+                }
+            }
+            
+            StickyInterActiveView();
+        }
+
+        private void StickyInterActiveView()
+        {
+            if (Camera.main != null)
+            {
+                _interactiveView.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2);
+            }
+        }
+
+        public void UnlockDoor()
+        {
+            if (inventorySystem.Inventory.ContainsKey(typeof(KeyItem)) && inventorySystem.Inventory[typeof(KeyItem)] >= requiredKeys)
+            {
+                _isUnlocking = true;
+                Locator<DoorObserver>.Get().OpenDoor();
             }
         }
     }

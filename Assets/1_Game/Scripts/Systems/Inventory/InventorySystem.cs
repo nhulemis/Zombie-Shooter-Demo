@@ -17,5 +17,18 @@ namespace _1_Game.Scripts.Systems
                 Inventory[type]++;
             }
         }
+
+
+        public void Use<T>(int requiredKeys)
+        {
+            var type = typeof(T);
+            if (Inventory.TryGetValue(type, out var value))
+            {
+                if (value >= requiredKeys)
+                {
+                    Inventory[type] -= requiredKeys;
+                }
+            }
+        }
     }
 }

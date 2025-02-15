@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _1_Game.Scripts.Systems.Door
 {
@@ -14,6 +15,7 @@ namespace _1_Game.Scripts.Systems.Door
     {
         [SerializeField,ValueDropdown("GetDoorParts")] Transform[] _doorParts;
         [SerializeReference] private List<ICommand> _doorStateChangeCommands = new List<ICommand>();
+        public bool IsOpen { get; set; }
         private IEnumerable GetDoorParts()
         {
             var doorParts = GetComponentsInChildren<Transform>();   

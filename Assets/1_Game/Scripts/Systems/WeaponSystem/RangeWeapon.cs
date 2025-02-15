@@ -35,9 +35,9 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             }
             else
             {
-                var projectilePrefab = await AssetLoader.Load<GameObject>(WeaponDataSet.projectilePrefab);
-                if(projectilePrefab == null) return;
-                var projectile = Instantiate(projectilePrefab, _firePoint.position, Quaternion.identity);
+                var projectile = await AssetLoader.Instantiate(WeaponDataSet.projectilePrefab);
+                if(projectile == null) return;
+                projectile.transform.position = _firePoint.position;
                 projectile.transform.forward = _firePoint.forward;
                 
                 if (projectile.TryGetComponent(out Projectile projectileComponent))

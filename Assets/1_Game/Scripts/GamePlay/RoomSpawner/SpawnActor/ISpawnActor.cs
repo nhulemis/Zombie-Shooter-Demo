@@ -6,5 +6,6 @@ namespace _1_Game.Scripts.GamePlay.RoomSpawner
     {
         GameObject Prefab { get; set; }
         void Spawn(Vector3 position);
+        void Spawn(Transform parent);
     }
 }

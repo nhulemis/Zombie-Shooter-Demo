@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using _1_Game.Scripts.DataConfig;
+using _1_Game.Scripts.GamePlay;
 using _1_Game.Scripts.Systems.AIBehaviourTree;
+using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
 using Script.GameData;
 using UnityEngine;
@@ -43,9 +45,22 @@ namespace _1_Game.Systems.Character
             animator = _animationController.Animator;
             player = FindFirstObjectByType<PlayerActor>().transform;
 
+            RegisterBehaviourTree();
+
+            InitSpellCastData();
+            
+            Locator<MapProvider>.Get().AddEnemy(gameObject);
+        }
+
+        private void RegisterBehaviourTree()
+        {
             ConditionNode checkPlayerInRange = new ConditionNode(() =>
             {
                 bool isPlayerInRange = Vector3.Distance(transform.position, player.position) < detectionRange;
+                if (Locator<DoorObserver>.Get().RxIsDoorOpen.Value)
+                {
+                    isPlayerInRange = true;
+                }
                 bool isValidPath = NavMesh.CalculatePath(transform.position, player.position, NavMesh.AllAreas,
                     new NavMeshPath());
                 return isPlayerInRange && isValidPath;
@@ -53,8 +68,9 @@ namespace _1_Game.Systems.Character
 
             ConditionNode checkPlayerInAttackRange = new ConditionNode(() =>
             {
-                return Vector3.Distance(transform.position, player.position) <
-                       CharacterDataConfig.AttackRange + 0.5f;
+                bool isPlayerInRange = Vector3.Distance(transform.position, player.position) < Weapon.WeaponDataSet.range;
+                
+                return isPlayerInRange;
             });
 
             // Actions
@@ -74,8 +90,6 @@ namespace _1_Game.Systems.Character
                 new SequenceNode(new List<Node> { checkPlayerInRange, moveToPlayer }), // Chase player
                 patrol
             });
-
-            InitSpellCastData();
         }
 
         private void InitSpellCastData()
@@ -190,7 +204,7 @@ namespace _1_Game.Systems.Character
             return Vector3.zero; // Invalid position
         }
 
-        void Update()
+        void LateUpdate()
         {
             if (IsStunned) return;
             rootNode.Evaluate();
