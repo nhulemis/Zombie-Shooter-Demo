@@ -14,6 +14,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
     [Serializable]
     public class WeaponActorComponent : MonoBehaviour , IPickupableObject
     {
+        [field: SerializeField] public string Id { get; set; }
         [SerializeField]
         public WeaponDataSet WeaponDataSet;
         [field: SerializeField, ValueDropdown("animationLayerNames")] public string PoseLayerName { get; set; }

@@ -23,6 +23,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem.Commands
             var weapon = _pickupable as WeaponActorComponent;
             Assert.IsNotNull(weapon, "Class Weapon is not implement IPickupableObject");
             player.PickupWeapon(weapon);
+            player.PutIntoInventory(weapon);
         }
     }
 }

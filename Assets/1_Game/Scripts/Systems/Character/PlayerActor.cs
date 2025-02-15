@@ -101,5 +101,16 @@ namespace _1_Game.Systems.Character
                 Gizmos.DrawSphere(_aimTarget.position, 0.5f);
             }
         }
+
+        public void PutIntoInventory(WeaponActorComponent weapon)
+        {
+            _weaponController.PutIntoInventory(weapon);
+        }
+
+        public void SwapWeapon()
+        {
+            var nextWeapon = _weaponController.GetNextWeapon();
+            PickupWeapon(nextWeapon, false);
+        }
     }
 }

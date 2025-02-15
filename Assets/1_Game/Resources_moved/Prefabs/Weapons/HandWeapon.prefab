@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc51bd835e54a6a9cfe19930a674e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: handweapon
   WeaponDataSet: {fileID: 8220903800279279065, guid: 23e43ce57328f417cabbec2c84c23a17, type: 2}
   <PoseLayerName>k__BackingField: Sword
 --- !u!54 &1813282054292651088

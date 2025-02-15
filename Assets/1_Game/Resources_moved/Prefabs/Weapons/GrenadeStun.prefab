@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e318a415f9634f25961b48c80063d20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: stungrenade
   WeaponDataSet: {fileID: -239411540798607444, guid: 23e43ce57328f417cabbec2c84c23a17, type: 2}
   <PoseLayerName>k__BackingField: Grenade
   _rangeActor:

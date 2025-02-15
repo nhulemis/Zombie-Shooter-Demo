@@ -11,7 +11,8 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
 {
     public class AssetLoader
     {
-        private Dictionary<int, AsyncOperationHandle>
+        private Dictionary<string, object> loadedAssets = new ();
+        private Dictionary<string, AsyncOperationHandle>
             handleCache = new (); 
         
         public static UniTask<T> Load<T>(AssetReference key) where T : UnityEngine.Object
@@ -21,7 +22,6 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
         
         public async UniTask<T> LoadAsset<T>(AssetReference assetReference) where T : UnityEngine.Object
         {
-            int keyHash = assetReference.RuntimeKey.GetHashCode();
             if (!assetReference.RuntimeKeyIsValid())
             {
                 Debug.LogError("Invalid AssetReference!");
@@ -29,24 +29,31 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             }
 
             string key = assetReference.RuntimeKey.ToString();
+            
+            
 
-            if (handleCache.TryGetValue(keyHash, out AsyncOperationHandle existingHandle))
+            if (handleCache.TryGetValue(key, out AsyncOperationHandle existingHandle))
             {
                 if (existingHandle.IsValid() && existingHandle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    Debug.Log($"Using cached asset: {key}");
                     return (T)existingHandle.Result;
                 }
             }
             
+            if(loadedAssets.TryGetValue(key, out object existingAsset))
+            {
+                return (T)existingAsset;
+            }
+            
             AsyncOperationHandle<T> handle = assetReference.LoadAssetAsync<T>();
-            handleCache[keyHash] = handle;
+            handleCache[key] = handle;
 
             await handle.ToUniTask(); 
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 Debug.Log($"Asset loaded successfully: {key}");
+                loadedAssets[key] = handle.Result;
                 return handle.Result;
             }
             else
@@ -58,7 +65,7 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
 
         public void ReleaseAsset(AssetReference key)
         {
-            int keyHash = key.RuntimeKey.GetHashCode();
+            string keyHash = key.RuntimeKey.ToString();
             if (handleCache.TryGetValue(keyHash, out var handle))
             {
                 Addressables.Release(handle);

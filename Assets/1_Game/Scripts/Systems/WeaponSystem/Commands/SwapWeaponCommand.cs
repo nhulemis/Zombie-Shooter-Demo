@@ -47,12 +47,6 @@ namespace _1_Game.Scripts.Systems.WeaponSystem.Commands
             return this;
         }
 
-        public T Make<T>(CharacterActor actor) where T : SwapWeaponCommand
-        {
-            _owner = actor;
-            return (T) this;
-        }
-
         public async UniTask<bool> Execute()
         {
             Assert.IsFalse(string.IsNullOrEmpty(SwapToWeaponActorComponent), "SwapToWeaponActorComponent is null or empty");

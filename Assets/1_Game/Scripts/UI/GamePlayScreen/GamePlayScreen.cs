@@ -1,9 +1,9 @@
-
 using System;
 using System.Collections;
 using _1_Game.Scripts.Systems;
 using _1_Game.Scripts.Systems.WeaponSystem.Commands;
 using _1_Game.Scripts.Util;
+using _1_Game.Systems.Character.Command;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Systems.UI;
@@ -67,6 +67,11 @@ namespace Game.UI
         public void OnUseGrenadeClick()
         {
             new PreGrenadeCommand().Execute().Forget();
+        }
+        
+        public void SwapWeapon()
+        {
+            new SwitchWeaponCommand().Execute().Forget();
         }
     }
 }

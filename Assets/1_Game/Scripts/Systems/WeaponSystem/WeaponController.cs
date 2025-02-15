@@ -47,6 +47,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         {
             if (weapon == null) return;
             var wpInstance = Instantiate(weapon);
+            wpInstance.gameObject.SetActive(true);
             wpInstance.Init(_actor);
             _rightHandAttachComponent.AttachWeapon(wpInstance);
         }
@@ -78,6 +79,38 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         public void AttackTo(Vector3 target)
         {
             EquippedWeapon?.AttackTo(target);
+        }
+
+        public void PutIntoInventory(WeaponActorComponent weapon)
+        {
+            if(Weapons.Exists(x=>x.Id.Equals(weapon.Id) )) return;
+            var weaponInstance = Instantiate(weapon);
+            weaponInstance.gameObject.SetActive(false);
+            Weapons.Add(weaponInstance);
+        }
+
+        public WeaponActorComponent GetNextWeapon()
+        {
+            if (Weapons.Count == 0) return null;
+            var index = Weapons.FindIndex(x =>x.Id.Equals(EquippedWeapon.Id));
+            index++;
+            if (index >= Weapons.Count)
+            {
+                index = 0;
+            }
+
+            return Weapons[index];
+        }
+
+        public void Drop()
+        {
+            var currentWeapon = _rightHandAttachComponent.DetachWeapon();
+            if (currentWeapon != null)
+            {
+                currentWeapon.gameObject.SetActive(false);
+                currentWeapon.transform.SetParent(null);
+                Destroy(currentWeapon.gameObject, 0.5f);
+            }
         }
     }
 }

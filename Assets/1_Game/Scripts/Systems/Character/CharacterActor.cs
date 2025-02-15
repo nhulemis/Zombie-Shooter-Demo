@@ -141,9 +141,16 @@ namespace _1_Game.Systems.Character
             Destroy(gameObject);
         }
 
-        public void PickupWeapon(WeaponActorComponent weapon)
+        public void PickupWeapon(WeaponActorComponent weapon , bool switchToIdleHand = true)
         {
-            _weaponController.SwitchWeaponToIdleHand();
+            if (switchToIdleHand)
+            {
+                _weaponController.SwitchWeaponToIdleHand();
+            }
+            else
+            {
+                _weaponController.Drop();
+            }
             _weaponController.EquipWeapon(weapon);
             _animationController.EquipWeapon(weapon);
             OverrideCharacterConfig(weapon.WeaponDataSet.overrideCharacterDataConfig);
