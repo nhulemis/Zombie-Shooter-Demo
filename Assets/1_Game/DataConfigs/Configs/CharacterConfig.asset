@@ -43,7 +43,7 @@ MonoBehaviour:
   - MappingTo: AC_Combo02
     Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
   HasSpell: 0
-  CountDownTime: 10
+  CountDownSpellTime: 10
   SpellIds: []
 --- !u!114 &-1360119056201419813
 MonoBehaviour:
@@ -76,7 +76,7 @@ MonoBehaviour:
   Health: 150
   OverrideClips: []
   HasSpell: 0
-  CountDownTime: 10
+  CountDownSpellTime: 10
   SpellIds: []
 --- !u!114 &11400000
 MonoBehaviour:
@@ -135,10 +135,10 @@ MonoBehaviour:
   RotationSpeed: 10
   AimOffsetAngle: 18
   AttackRange: 2
-  Health: 500000
+  Health: 250
   OverrideClips: []
   HasSpell: 0
-  CountDownTime: 10
+  CountDownSpellTime: 10
   SpellIds: []
 --- !u!114 &4263373524345201056
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   Health: 150
   OverrideClips: []
   HasSpell: 0
-  CountDownTime: 10
+  CountDownSpellTime: 10
   SpellIds: []
 --- !u!114 &6154324430041700617
 MonoBehaviour:
@@ -216,7 +216,7 @@ MonoBehaviour:
   - MappingTo: AC_Combo02
     Clip: {fileID: 7400000, guid: 6942e9cfcfac34266af42474716c2e84, type: 2}
   HasSpell: 1
-  CountDownTime: 10
+  CountDownSpellTime: 10
   SpellIds:
   - AttackByGrenade
   - AttackByGun
@@ -251,5 +251,5 @@ MonoBehaviour:
   Health: 150
   OverrideClips: []
   HasSpell: 0
-  CountDownTime: 10
+  CountDownSpellTime: 10
   SpellIds: []

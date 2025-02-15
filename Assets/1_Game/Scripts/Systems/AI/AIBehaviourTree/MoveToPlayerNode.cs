@@ -2,6 +2,7 @@ using System;
 using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
 using _1_Game.Systems.Character;
+using Cysharp.Threading.Tasks;
 using Script.GameData;
 using UniRx;
 using UnityEngine;
@@ -13,10 +14,9 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
     {
         public struct MoveParams
         {
-            public CharacterActor Character;
+            public CharacterActor Acttor;
             public NavMeshAgent Agent;
-            public Transform Player;
-            public CharacterDataConfig CharacterDataConfig;
+            public CharacterActor Player;
         }
 
         private NavMeshAgent _agent;
@@ -28,9 +28,9 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
         {
             _moveParams = moveParams;
             _agent = moveParams.Agent;
-            _player = moveParams.Player;
-            _stoppingDistance = moveParams.CharacterDataConfig.AttackRange;
-            _agent.speed = moveParams.CharacterDataConfig.MoveSpeed;
+            _player = moveParams.Player.transform;
+            _stoppingDistance = moveParams.Acttor.Weapon.WeaponDataSet.range;
+            _agent.speed = moveParams.Acttor.CharacterDataConfig.MoveSpeed;
 
             if(Locator<DoorObserver>.Get().RxIsDoorOpen.Value)
             {
@@ -42,7 +42,7 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         private void RegisterListener()
         {
-            _moveParams.Character.RxIsStunned.Subscribe(isStunned =>
+            _moveParams.Acttor.RxIsStunned.Subscribe(isStunned =>
             {
                 if (isStunned)
                 {
@@ -60,7 +60,10 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         public override NodeState Evaluate()
         {
-            
+            if(!_agent.isOnNavMesh)
+            {
+                return NodeState.Failure;
+            }
             float distance = Vector3.Distance(_agent.transform.position, _player.position);
             if (distance <= _stoppingDistance)
             {
@@ -77,13 +80,15 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
             return NodeState.Running;
         }
 
+        
+
         private void ExecuteAnimation(Vector3 velocity)
         {
             CharacterAnimationController.MovementParameters moveParam = default;
             moveParam.Movement = velocity;
             moveParam.IsAiming = false;
             moveParam.AimingTarget = null;
-            _moveParams.Character.Execute_MovementAnimation(moveParam);
+            _moveParams.Acttor.Execute_MovementAnimation(moveParam);
         }
     }
 }

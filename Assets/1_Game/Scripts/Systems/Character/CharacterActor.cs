@@ -13,6 +13,7 @@ using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace _1_Game.Systems.Character
 {
@@ -32,9 +33,11 @@ namespace _1_Game.Systems.Character
         public WeaponActorComponent Weapon => _weaponController.EquippedWeapon;
         
         public CharacterDataConfig CharacterDataConfig;
+        public float MaxHealth { get; private set; }
+        public float ProgressHP => RxHealth.Value / MaxHealth;
         protected float VerticalVelocity;
         protected bool isAiming;
-        protected float health;
+        public ReactiveProperty<float> RxHealth { get; } = new();
         public ReactiveProperty<bool> RxIsStunned { get; } = new();
         public bool IsStunned
         {
@@ -49,8 +52,7 @@ namespace _1_Game.Systems.Character
             CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
             _weaponController.Init(this);
             _animationController.Init(CharacterDataConfig);
-            health = CharacterDataConfig.Health;
-            
+            RxHealth.Value = MaxHealth = CharacterDataConfig.Health;
         }
 
         public virtual void Attack()
@@ -128,8 +130,8 @@ namespace _1_Game.Systems.Character
         public void TakeDamage(float damage)
         {
             Log.Debug($"[Character] {name} took {damage} damage");
-            health -= damage;
-            if (health <= 0)
+            RxHealth.Value -= damage;
+            if (RxHealth.Value <= 0)
             {
                 Die();
             }

@@ -35,9 +35,9 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
             }
             else
             {
-                var projectile = await AssetLoader.Instantiate(WeaponDataSet.projectilePrefab);
-                if(projectile == null) return;
-                projectile.transform.position = _firePoint.position;
+                var prefab = await AssetLoader.Load<GameObject>(WeaponDataSet.projectilePrefab);
+                if (prefab == null) return;
+                var projectile = Instantiate(prefab, _firePoint.position, Quaternion.identity);
                 projectile.transform.forward = _firePoint.forward;
                 
                 if (projectile.TryGetComponent(out Projectile projectileComponent))
@@ -45,10 +45,8 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
                     projectileComponent.Init(WeaponDataSet, _actor);
                 }
 
-                if (isDirectional)
-                    _rangeActor.Attack(projectile.transform, _firePoint.forward, WeaponDataSet);
-                else
-                    _rangeActor.AttackTo(projectile.transform, target, WeaponDataSet);
+                _rangeActor.Attack(projectile.transform, _firePoint.forward, WeaponDataSet);
+                
             }
         }
 
@@ -61,7 +59,7 @@ namespace _1_Game.Scripts.Systems.WeaponSystem
         public override async void AttackTo(Vector3 target)
         {
             base.AttackTo(target);
-            HandleAttack(target, false);
+            HandleAttack(target, _rangeActor is GunActor);
         }
     }
 }

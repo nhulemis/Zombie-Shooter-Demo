@@ -22,7 +22,7 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
 
         public override NodeState Evaluate()
         {
-            if (_patrolPoints.Count == 0)
+            if (_patrolPoints.Count == 0 || !_agent.isOnNavMesh)
             {
                 return NodeState.Failure;
             }

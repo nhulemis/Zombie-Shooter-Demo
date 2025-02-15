@@ -4,7 +4,9 @@ using _1_Game.Scripts.GamePlay;
 using _1_Game.Scripts.Systems.AIBehaviourTree;
 using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
+using Cysharp.Threading.Tasks;
 using Script.GameData;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -52,10 +54,13 @@ namespace _1_Game.Systems.Character
             Locator<MapProvider>.Get().AddEnemy(gameObject);
         }
 
-        private void RegisterBehaviourTree()
+        private async void RegisterBehaviourTree()
         {
+            await UniTask.NextFrame();
             ConditionNode checkPlayerInRange = new ConditionNode(() =>
             {
+                if (player.IsUnityNull()) return false;
+
                 bool isPlayerInRange = Vector3.Distance(transform.position, player.position) < detectionRange;
                 if (Locator<DoorObserver>.Get().RxIsDoorOpen.Value)
                 {
@@ -68,7 +73,8 @@ namespace _1_Game.Systems.Character
 
             ConditionNode checkPlayerInAttackRange = new ConditionNode(() =>
             {
-                bool isPlayerInRange = Vector3.Distance(transform.position, player.position) < Weapon.WeaponDataSet.range;
+                if (player.IsUnityNull()) return false;
+                bool isPlayerInRange = Vector3.Distance(transform.position, player.position) < Weapon.WeaponDataSet.range + 1f;
                 
                 return isPlayerInRange;
             });
@@ -76,9 +82,8 @@ namespace _1_Game.Systems.Character
             // Actions
             MoveToPlayerNode.MoveParams moveParams;
             moveParams.Agent = agent;
-            moveParams.Player = player;
-            moveParams.CharacterDataConfig = CharacterDataConfig;
-            moveParams.Character = this;
+            moveParams.Player = player.GetComponent<CharacterActor>();
+            moveParams.Acttor = this;
 
             MoveToPlayerNode moveToPlayer = new MoveToPlayerNode(moveParams);
             PatrolNode patrol = new PatrolNode(this, agent, PatrolPoints());
@@ -207,7 +212,7 @@ namespace _1_Game.Systems.Character
         void LateUpdate()
         {
             if (IsStunned) return;
-            rootNode.Evaluate();
+            if(rootNode != null) rootNode.Evaluate();
             
             if (Time.time - lastTimeUpdate > intervalUpdate)
             {

@@ -1583,7 +1583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5060800125017172857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2353,9 +2353,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 3500
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 2350
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2761,6 +2761,7 @@ MonoBehaviour:
   _txtGrenade: {fileID: 2319415467168989658}
   _txtAmmo: {fileID: 2548279308253309244}
   _txtKeys: {fileID: 5945254607649824480}
+  _healthSlider: {fileID: 5060800126737274231}
 --- !u!1 &7160151214965604609
 GameObject:
   m_ObjectHideFlags: 0

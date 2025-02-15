@@ -20,8 +20,8 @@ namespace _1_Game.Scripts.GamePlay.Commands
             Locator<DoorObserver>.Release();
             Locator<MapProvider>.Release();
             new OpenLoadingSceneCommand().Execute().Forget();
-            Locator<UISystem>.Instance.ExternalCloseUI<GamePlayScreen>();
             Locator<UISystem>.Instance.ExternalCloseUI<ClearStagePopup>();
+            Locator<UISystem>.Instance.ExternalCloseUI<GamePlayScreen>();
             Locator<UISystem>.Instance.ExternalCloseUI<MissionFailPopup>();
             Locator<UISystem>.Instance.ExternalCloseUI<MobileInputView>();
             Locator<UISystem>.Instance.ExternalCloseUI<DesktopInputView>();

@@ -103,8 +103,8 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.76
-  m_Radius: 0.26
+  m_Height: 2
+  m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -141,10 +141,10 @@ MonoBehaviour:
   _controller: {fileID: 233161248928468247}
   _weaponController: {fileID: 1230269579769135035}
   _characterConfigID: BaseCharacterConfig
+  CharacterDataConfig: {fileID: 0}
   _isPlayer: 1
   _input:
     rid: 8364553628744155489
-  _isAutoAim: 1
   references:
     version: 2
     RefIds:
@@ -382,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5353863289371752162, guid: f03a273a8d2514aafa31994cb17df715, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.92
+      value: -0.97
       objectReference: {fileID: 0}
     - target: {fileID: 5353863289371752162, guid: f03a273a8d2514aafa31994cb17df715, type: 3}
       propertyPath: m_LocalPosition.z

@@ -3,8 +3,10 @@ using _1_Game.Scripts.DataConfig;
 using _1_Game.Scripts.Systems.Observe;
 using _1_Game.Scripts.Util;
 using _1_Game.Systems.Character;
+using Cysharp.Threading.Tasks;
 using Script.GameData;
 using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _1_Game.Scripts.Systems.AIBehaviourTree
@@ -20,10 +22,12 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
         SpellConfig SpellConfig => GameDataBase.Get<SpellConfig>();
         
         private float _mutiplier = 1f;
+        private Transform _player;
 
         public AttackNode(CharacterActor actor, Transform target)
         {
             _actor = actor;
+            _player = target;
             Locator<DoorObserver>.Get().RxIsDoorOpen.Subscribe(b =>
             {
                 if (b)
@@ -42,10 +46,41 @@ namespace _1_Game.Scripts.Systems.AIBehaviourTree
             if (Time.time >= _lastAttackTime + GetAttackRate())
             {
                 _lastAttackTime = Time.time;
-                _actor.Attack();
+                RotateTowardsPlayer().Forget();
                 return NodeState.Success;
             }
             return NodeState.Running;
+        }
+        
+        private async UniTask RotateTowardsPlayer()
+        {
+            Vector3 direction = _player.position - _actor.transform.position;
+            direction.y = 0; // Ignore vertical rotation
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            ExecuteAnimation(Vector3.zero);
+            while (!_actor.IsUnityNull() && Quaternion.Angle(_actor.transform.rotation, targetRotation) > 2f)
+            {
+                
+                _actor.transform.rotation = Quaternion.Slerp(
+                    _actor.transform.rotation, 
+                    targetRotation, 
+                    Time.deltaTime * 15f
+                );
+        
+                await UniTask.Yield();
+            }
+            if(_actor.IsUnityNull()) return;
+            _actor.Attack();
+        }
+        
+        private void ExecuteAnimation(Vector3 velocity)
+        {
+            CharacterAnimationController.MovementParameters moveParam = default;
+            moveParam.Movement = velocity;
+            moveParam.IsAiming = false;
+            moveParam.AimingTarget = null;
+            _actor.Execute_MovementAnimation(moveParam);
         }
 
         private bool CanAttackSpell()

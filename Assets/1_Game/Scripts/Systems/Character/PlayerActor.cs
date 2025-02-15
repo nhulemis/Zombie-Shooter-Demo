@@ -1,4 +1,5 @@
 using System;
+using _1_Game.Scripts.GamePlay;
 using _1_Game.Scripts.Systems.InputSystem;
 using _1_Game.Scripts.Systems.WeaponSystem;
 using _1_Game.Scripts.Util;
@@ -24,6 +25,7 @@ namespace _1_Game.Systems.Character
             _aimTarget = new GameObject("AimTarget").transform;
             _autoAimingActorComponent = _aimTarget.AddComponent<AutoAimingActorComponent>();
             _autoAimingActorComponent.Init(this);
+            Locator<MapProvider>.Get().Init(this);
         }
 
         private void OnDestroy()
@@ -35,6 +37,7 @@ namespace _1_Game.Systems.Character
         {
             if(IsStunned) return;
             if (!_isPlayer) return;
+            if(this.IsUnityNull()) return;
             Movement();
             Attack();
             isAiming = _autoAimingActorComponent.IsAiming;
