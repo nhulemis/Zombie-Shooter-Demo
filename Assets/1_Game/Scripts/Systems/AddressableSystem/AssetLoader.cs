@@ -132,13 +132,12 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
         public static async UniTask<GameObject> Instantiate(Object prefab, Vector3 position, Quaternion rotation,
             Transform parent = null)
         {
-            var go = Object.Instantiate(prefab).GameObject();
+            var go = Object.Instantiate(prefab, parent).GameObject();
             
             if (parent != null)
             {
                 go.transform.position = position;
                 go.transform.rotation = rotation;
-                go.transform.SetParent(parent);
                 return go;
             }
             
@@ -155,8 +154,24 @@ namespace _1_Game.Scripts.Systems.AddressableSystem
             go.transform.rotation = rotation;
             Debug.Log($"Instantiated {prefab.name} in {targetSceneName}");
             return go;
-            
+        }
+        
+        public static async UniTask<GameObject> InstantiateToScene(Object prefab, Transform parent = null)
+        {
+            var go = Object.Instantiate(prefab).GameObject();
+            go.transform.localPosition = Vector3.zero;
+            string targetSceneName = "GamePlay";
+            Scene targetScene = SceneManager.GetSceneByName(targetSceneName);
+
+            if (!targetScene.isLoaded)
+            {
+                Debug.LogError($"Scene {targetSceneName} is not loaded!");
+                return null;
+            }
+            SceneManager.MoveGameObjectToScene(go, targetScene);
+            Debug.Log($"Instantiated {prefab.name} in {targetSceneName}");
             return go;
         }
+        
     }
 }

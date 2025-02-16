@@ -13,7 +13,6 @@ using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace _1_Game.Systems.Character
 {
@@ -39,6 +38,9 @@ namespace _1_Game.Systems.Character
         protected bool isAiming;
         public ReactiveProperty<float> RxHealth { get; } = new();
         public ReactiveProperty<bool> RxIsStunned { get; } = new();
+        
+        private GameDataBase GameDataBase => Locator<GameDataBase>.Get();
+        
         public bool IsStunned
         {
             get => RxIsStunned.Value;
@@ -49,7 +51,7 @@ namespace _1_Game.Systems.Character
 
         private void Awake()
         {
-            CharacterDataConfig = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(_characterConfigID);
+            CharacterDataConfig = GameDataBase.Get<CharacterConfig>().Get(_characterConfigID);
             _weaponController.Init(this);
             _animationController.Init(CharacterDataConfig);
             RxHealth.Value = MaxHealth = CharacterDataConfig.Health;
@@ -98,7 +100,7 @@ namespace _1_Game.Systems.Character
         
         protected void OverrideCharacterConfig(string characterConfigID)
         {
-            var overrideData = SafetyDatabase.SafetyDB.Get<CharacterConfig>().Get(characterConfigID);
+            var overrideData = GameDataBase.Get<CharacterConfig>().Get(characterConfigID);
             if(overrideData == null) return;
             CharacterDataConfig = overrideData;
             _animationController.ApplyOverrideConfig(CharacterDataConfig);

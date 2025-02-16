@@ -148,7 +148,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.05
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4027026022268953957
 MonoBehaviour:
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explosionPrefab: {fileID: 1974592250055434, guid: b15a120c1390db449b8eb5af19d62424, type: 3}
+  _isAOE: 0
 --- !u!1 &7256175362937512976
 GameObject:
   m_ObjectHideFlags: 0

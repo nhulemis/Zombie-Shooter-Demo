@@ -5,6 +5,7 @@ using _1_Game.Systems.Character;
 using Cysharp.Threading.Tasks;
 using Game.UI;
 using NUnit.Framework;
+using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace _1_Game.Scripts.GamePlay
         public List<InteractiveDoorComponent> Doors = new ();
         public List<GameObject> Enemies = new ();
         public PlayerActor PlayerActor { get; set; }
+        
+        public MapActorComponent CurrentStage { get; set; }
+        public ReactiveCommand<string> OnStageChange = new();
         
         public void Init(PlayerActor playerActor)
         {
@@ -46,7 +50,7 @@ namespace _1_Game.Scripts.GamePlay
                 Debug.Log("Player has killed all enemies");
             }
             
-            if(allDoorsOpen && allEnemiesDead)
+            if(allDoorsOpen && allEnemiesDead && CurrentStage.IsEndStage)
             {
                 Debug.Log("Player has completed the level");
                 new OpenClearStagePopupCommand().Execute().Forget();
@@ -57,6 +61,12 @@ namespace _1_Game.Scripts.GamePlay
                 Debug.Log("Player has died");
                 new OpenMissionFailPopupCommand().Execute().Forget();
             }
+        }
+
+        public void SetCurrentStage(MapActorComponent mapActorComponent)
+        {
+            CurrentStage = mapActorComponent;
+            OnStageChange.Execute(CurrentStage.StageName);
         }
     }
 }

@@ -120,5 +120,16 @@ namespace _1_Game.Systems.Character
             var nextWeapon = _weaponController.GetNextWeapon();
             PickupWeapon(nextWeapon, false);
         }
+
+        public void RecoveryHealth(float recoveryAmount)
+        {
+            float currentHealth = RxHealth.Value;
+            currentHealth += recoveryAmount;
+            if (currentHealth > CharacterDataConfig.Health)
+            {
+                currentHealth = CharacterDataConfig.Health;
+            }
+            RxHealth.Value += currentHealth;
+        }
     }
 }

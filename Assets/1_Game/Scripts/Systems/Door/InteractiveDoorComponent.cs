@@ -47,6 +47,7 @@ namespace _1_Game.Scripts.Systems.Door
             var builder = view.GetBuilder(_builderName);
             _interactiveView.SetParent(builder);
             _interactiveView.gameObject.SetActive(false);
+            _interactiveView.localRotation = Quaternion.Euler(0, 0, 0);
             if (_interactable)
             {
                 Locator<MapProvider>.Get().AddDoor(this);

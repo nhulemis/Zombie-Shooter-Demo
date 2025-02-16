@@ -1,12 +1,16 @@
 using System.Collections;
 using Sirenix.OdinInspector;
+
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
 using UnityEngine;
 
 namespace Script.GameData.AnimationLayerMapping
 {
     public class AnimationLayerMappingConfig : BaseConfig
     {
+#if UNITY_EDITOR
         [SerializeField] private AnimatorController _animatorController;
         
         public IEnumerable GetLayerNames()
@@ -71,5 +75,7 @@ namespace Script.GameData.AnimationLayerMapping
                 }
             }
         }
+#endif
+
     }
 }

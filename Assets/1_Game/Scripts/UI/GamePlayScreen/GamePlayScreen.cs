@@ -26,6 +26,9 @@ namespace Game.UI
 
         [SerializeField, ValueDropdown("tmpTexts")]
         private TMP_Text _txtKeys;
+        
+        [SerializeField, ValueDropdown("tmpTexts")]
+        private TMP_Text _txtStage;
 
         [SerializeField] private Slider _healthSlider;
         private IEnumerable tmpTexts => transform.GetComponentsInChildren<TMP_Text>();
@@ -52,6 +55,7 @@ namespace Game.UI
             await UniTask.WaitUntil(() => Locator<MapProvider>.Get().PlayerActor != null);
             var player = Locator<MapProvider>.Get().PlayerActor;
             player.RxHealth.Subscribe(health => { _healthSlider.DOValue(player.ProgressHP, 0.5f); }).AddTo(this);
+            Locator<MapProvider>.Get().OnStageChange.Subscribe(stage=>_txtStage.text = $"stage: {stage}").AddTo(this);
         }
 
         private void OnPropertyChanged(Type itemChangedKey, int itemChangedValue)

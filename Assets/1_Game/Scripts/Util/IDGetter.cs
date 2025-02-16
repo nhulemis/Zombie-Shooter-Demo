@@ -8,8 +8,6 @@ using Script.GameData.Weapon;
 
 namespace _1_Game.Scripts.Util
 {
-   
-
     public static class IDGetter
     {
         public static IEnumerable GetUIGroupName()
@@ -41,36 +39,44 @@ namespace _1_Game.Scripts.Util
         {
 #if !UNITY_EDITOR
             return new List<string>();
-#endif
+#else
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
             return animationLayerMappingConfig.GetLayerNames();
+#endif
+            
         }
 
         public static IEnumerable GetParameterAnimationNames()
         {
 #if !UNITY_EDITOR
             return new List<string>();
-#endif
+            #else
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
             return animationLayerMappingConfig.GetParameterNames();
+#endif
+            
         }
         
         public static IEnumerable GetAnimationClips()
         {
 #if !UNITY_EDITOR
             return new List<string>();
-#endif
+            #else
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<AnimationLayerMappingConfig>();
             return animationLayerMappingConfig.GetAllClips();
+#endif
+            
         }
         
         public static IEnumerable GetSpellDataSets()
         {
 #if !UNITY_EDITOR
             return new List<string>();
-#endif
+            #else
             var animationLayerMappingConfig = SafetyDatabase.SafetyDB.Get<SpellConfig>();
             return animationLayerMappingConfig.GetSpellDataSets();
+#endif
+           
         }
     }
 }

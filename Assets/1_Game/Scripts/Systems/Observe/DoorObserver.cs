@@ -12,5 +12,10 @@ namespace _1_Game.Scripts.Systems.Observe
             OnUserOpenDoor.Execute();
             RxIsDoorOpen.Value = true;
         }
+        
+        public void NextStage()
+        {
+            RxIsDoorOpen.Value = false;
+        }
     }
 }
