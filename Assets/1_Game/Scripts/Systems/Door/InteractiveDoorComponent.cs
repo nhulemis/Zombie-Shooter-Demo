@@ -54,6 +54,11 @@ namespace _1_Game.Scripts.Systems.Door
             }
         }
 
+        private void OnDestroy()
+        {
+            Destroy(_interactiveView.gameObject);
+        }
+
         private void RegisterListeners()
         {
             inventorySystem.Inventory.ObserveAdd().Subscribe(itemChanged =>
